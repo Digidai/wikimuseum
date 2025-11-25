@@ -7,16 +7,7 @@ const articles = (await getCollection('articles'))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 ---
 
-<BaseLayout title="首页" description="WikiMuseum - 探索知识，分享见解">
-  <div class="mb-12">
-    <h1 class="text-4xl font-bold text-notion-text mb-4">
-      WikiMuseum
-    </h1>
-    <p class="text-lg text-notion-muted">
-      探索知识，分享见解。这是一个支持 Markdown 写作和 AI SEO 优化的现代博客平台。
-    </p>
-  </div>
-
+<BaseLayout title="首页" description="WikiMuseum">
   {articles.length > 0 ? (
     <div class="space-y-6">
       {articles.map((article) => (
