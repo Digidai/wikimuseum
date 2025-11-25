@@ -51,18 +51,26 @@ async function fetchGistContent(gistUrl) {
 }
 
 /**
- * Extract title from markdown content
+ * Extract title from markdown content and remove it from content
  */
-function extractTitle(content) {
-  // Try to find # heading
-  const h1Match = content.match(/^#\s+(.+)$/m);
+function extractTitleAndClean(content) {
+  // Remove frontmatter first
+  let cleanContent = content.replace(/^---[\s\S]*?---\n?/, '').trim();
+
+  // Try to find # heading (h1)
+  const h1Match = cleanContent.match(/^#\s+(.+)$/m);
   if (h1Match) {
-    return h1Match[1].trim();
+    const title = h1Match[1].trim();
+    // Remove the title line from content
+    cleanContent = cleanContent.replace(/^#\s+.+\n?/, '').trim();
+    return { title, content: cleanContent };
   }
 
   // Use first line as fallback
-  const firstLine = content.split('\n')[0].trim();
-  return firstLine.replace(/^#+\s*/, '') || '未命名文章';
+  const firstLine = cleanContent.split('\n')[0].trim();
+  const title = firstLine.replace(/^#+\s*/, '') || '未命名文章';
+
+  return { title, content: cleanContent };
 }
 
 /**
@@ -114,11 +122,11 @@ async function main() {
   }
 
   console.log('Fetching content from Gist...');
-  const content = await fetchGistContent(gistUrl);
-  console.log(`Fetched ${content.length} characters`);
+  const rawContent = await fetchGistContent(gistUrl);
+  console.log(`Fetched ${rawContent.length} characters`);
 
-  // Extract metadata from content
-  const title = extractTitle(content);
+  // Extract title and clean content (remove title from body)
+  const { title, content } = extractTitleAndClean(rawContent);
   const description = extractDescription(content);
 
   console.log(`Title: ${title}`);
@@ -132,10 +140,7 @@ async function main() {
   // Generate frontmatter and combine with content
   const frontmatter = generateFrontmatter(title, description);
 
-  // Remove any existing frontmatter from content
-  const contentWithoutFrontmatter = content.replace(/^---[\s\S]*?---\n?/, '').trim();
-
-  const finalContent = `${frontmatter}\n\n${contentWithoutFrontmatter}`;
+  const finalContent = `${frontmatter}\n\n${content}`;
 
   // Write file
   await fs.writeFile(filepath, finalContent, 'utf-8');
