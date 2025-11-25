@@ -2,7 +2,7 @@
 
 /**
  * SEO Optimization Script
- * Calls OpenRouter DeepSeek API to generate SEO-optimized frontmatter for articles
+ * Fetches content from Gist and calls OpenRouter DeepSeek API for SEO optimization
  */
 
 import fs from 'fs/promises';
@@ -11,11 +11,61 @@ import path from 'path';
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
+/**
+ * Extract Gist ID from URL and fetch raw content
+ */
+async function fetchGistContent(gistUrl) {
+  // Extract gist ID from URL
+  // Supports formats:
+  // - https://gist.github.com/username/gist_id
+  // - https://gist.github.com/gist_id
+  const match = gistUrl.match(/gist\.github\.com\/(?:[^/]+\/)?([a-f0-9]+)/i);
+  if (!match) {
+    throw new Error(`Invalid Gist URL: ${gistUrl}`);
+  }
+
+  const gistId = match[1];
+  console.log(`Fetching Gist: ${gistId}`);
+
+  // Fetch gist metadata from GitHub API
+  const apiUrl = `https://api.github.com/gists/${gistId}`;
+  const response = await fetch(apiUrl, {
+    headers: {
+      'Accept': 'application/vnd.github.v3+json',
+      'User-Agent': 'WikiMuseum-SEO-Bot'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch Gist: ${response.status} ${response.statusText}`);
+  }
+
+  const gistData = await response.json();
+
+  // Get the first file's content (or look for .md file)
+  const files = Object.values(gistData.files);
+  let targetFile = files.find(f => f.filename.endsWith('.md')) || files[0];
+
+  if (!targetFile) {
+    throw new Error('No files found in Gist');
+  }
+
+  console.log(`Using file: ${targetFile.filename}`);
+
+  // If content is truncated, fetch raw URL
+  if (targetFile.truncated) {
+    const rawResponse = await fetch(targetFile.raw_url);
+    return await rawResponse.text();
+  }
+
+  return targetFile.content;
+}
+
 async function callDeepSeek(content) {
   const prompt = `你是一个专业的 SEO 优化专家。请分析以下 Markdown 文章内容，生成 SEO 优化的元数据。
 
 文章内容:
-${content}
+${content.substring(0, 8000)}
 
 请以 JSON 格式返回以下字段（不要包含其他文字，只返回 JSON）:
 {
@@ -42,7 +92,8 @@ ${content}
   });
 
   if (!response.ok) {
-    throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}\n${errorText}`);
   }
 
   const data = await response.json();
@@ -58,7 +109,6 @@ ${content}
 }
 
 function generateSlug(title) {
-  // Generate URL-friendly slug from title
   const timestamp = Date.now();
   const cleanTitle = title
     .toLowerCase()
@@ -80,11 +130,10 @@ seoOptimized: true
 }
 
 async function main() {
-  // Get markdown content from command line argument or stdin
-  let content = process.argv[2];
+  const gistUrl = process.argv[2];
 
-  if (!content) {
-    console.error('Usage: node seo-optimize.mjs "<markdown-content>"');
+  if (!gistUrl) {
+    console.error('Usage: node seo-optimize.mjs "<gist-url>"');
     process.exit(1);
   }
 
@@ -93,36 +142,33 @@ async function main() {
     process.exit(1);
   }
 
+  console.log('Fetching content from Gist...');
+  const content = await fetchGistContent(gistUrl);
+  console.log(`Fetched ${content.length} characters`);
+
   console.log('Calling DeepSeek API for SEO optimization...');
+  const seoData = await callDeepSeek(content);
+  console.log('SEO optimization result:', seoData);
 
-  try {
-    const seoData = await callDeepSeek(content);
-    console.log('SEO optimization result:', seoData);
+  // Generate filename
+  const slug = generateSlug(seoData.title);
+  const filename = `${slug}.md`;
+  const filepath = path.join(process.cwd(), 'src', 'content', 'articles', filename);
 
-    // Generate filename
-    const slug = generateSlug(seoData.title);
-    const filename = `${slug}.md`;
-    const filepath = path.join(process.cwd(), 'src', 'content', 'articles', filename);
+  // Generate frontmatter and combine with content
+  const frontmatter = generateFrontmatter(seoData);
 
-    // Generate frontmatter and combine with content
-    const frontmatter = generateFrontmatter(seoData);
+  // Remove any existing frontmatter from content
+  const contentWithoutFrontmatter = content.replace(/^---[\s\S]*?---\n?/, '').trim();
 
-    // Remove any existing frontmatter from content
-    const contentWithoutFrontmatter = content.replace(/^---[\s\S]*?---\n?/, '').trim();
+  const finalContent = `${frontmatter}\n\n${contentWithoutFrontmatter}`;
 
-    const finalContent = `${frontmatter}\n\n${contentWithoutFrontmatter}`;
-
-    // Write file
-    await fs.writeFile(filepath, finalContent, 'utf-8');
-    console.log(`Article created: ${filepath}`);
-
-    // Output the filename for GitHub Actions
-    console.log(`::set-output name=filename::${filename}`);
-
-  } catch (error) {
-    console.error('Error:', error.message);
-    process.exit(1);
-  }
+  // Write file
+  await fs.writeFile(filepath, finalContent, 'utf-8');
+  console.log(`Article created: ${filepath}`);
 }
 
-main();
+main().catch(err => {
+  console.error('Error:', err.message);
+  process.exit(1);
+});

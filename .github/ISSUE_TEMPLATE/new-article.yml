@@ -1,5 +1,5 @@
 name: 发布新文章
-description: 发布一篇新的 Markdown 文章
+description: 通过 Gist 链接发布一篇新的 Markdown 文章
 title: "新文章发布"
 labels: ["new-article"]
 body:
@@ -7,20 +7,13 @@ body:
     attributes:
       value: |
         ## 发布新文章
-        在下方粘贴您的 Markdown 文章内容。系统将自动进行 AI SEO 优化后发布。
+        请在下方填入包含文章内容的 GitHub Gist 链接。
 
-  - type: textarea
-    id: content
+  - type: input
+    id: gist_url
     attributes:
-      label: 文章内容
-      description: 粘贴您的 Markdown 格式文章内容
-      placeholder: |
-        # 文章标题
-
-        ## 简介
-        文章的简介内容...
-
-        ## 正文
-        文章的正文内容...
+      label: Gist 链接
+      description: 填入包含 Markdown 文章的 Gist URL
+      placeholder: "https://gist.github.com/username/xxxxx"
     validations:
       required: true
