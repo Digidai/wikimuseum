@@ -25,27 +25,21 @@
   }
 
   .prose h1 {
-    @apply text-4xl font-bold mt-10 mb-6 text-notion-text tracking-tight;
+    @apply text-2xl font-semibold mt-10 mb-6 text-notion-text;
   }
 
   .prose h2 {
-    @apply text-2xl font-semibold mt-10 mb-4 text-notion-text tracking-tight;
+    @apply text-xl font-semibold mt-8 mb-4 text-notion-text;
   }
 
   .prose h3 {
-    @apply text-xl font-semibold mt-8 mb-3 text-notion-text;
+    @apply text-lg font-medium mt-6 mb-3 text-notion-text;
   }
 
-  .prose h4 {
-    @apply text-lg font-bold mt-8 mb-3 text-notion-text;
-  }
-
-  .prose h5 {
-    @apply text-base font-bold mt-6 mb-2 text-notion-text;
-  }
-
+  .prose h4,
+  .prose h5,
   .prose h6 {
-    @apply text-sm font-bold mt-5 mb-2 text-notion-text uppercase tracking-wide;
+    @apply text-base font-medium mt-6 mb-2 text-notion-text;
   }
 
   .prose p {
@@ -57,7 +51,7 @@
   }
 
   .prose a {
-    @apply text-notion-blue underline decoration-notion-blue/40 underline-offset-2 hover:decoration-notion-blue transition-colors;
+    @apply text-notion-blue hover:underline;
   }
 
   .prose ul, .prose ol {
@@ -91,15 +85,15 @@
   }
 
   .prose code {
-    @apply bg-notion-hover px-1.5 py-1 rounded text-[15px] font-mono text-notion-text border border-notion-border/50;
+    @apply bg-notion-hover px-1.5 py-0.5 rounded text-[15px] font-mono text-notion-text;
   }
 
   .prose pre {
-    @apply bg-[#F7F6F3] p-5 rounded-lg my-6 overflow-x-auto border border-notion-border/50;
+    @apply bg-notion-hover p-4 rounded my-6 overflow-x-auto;
   }
 
   .prose pre code {
-    @apply bg-transparent p-0 border-0 text-[14px];
+    @apply bg-transparent p-0 text-[14px];
   }
 
   .prose blockquote {
@@ -111,7 +105,7 @@
   }
 
   .prose img {
-    @apply rounded-lg my-6 shadow-sm;
+    @apply my-6;
   }
 
   .prose hr {
@@ -123,14 +117,10 @@
   }
 
   .prose th {
-    @apply text-left font-semibold p-3 bg-notion-hover border-b border-notion-border;
+    @apply text-left font-medium p-3 border-b border-notion-border;
   }
 
   .prose td {
     @apply p-3 border-b border-notion-border;
-  }
-
-  .prose tr:hover td {
-    @apply bg-notion-hover/50;
   }
 }
