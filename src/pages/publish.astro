@@ -1,59 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const GITHUB_OWNER = 'Digidai';
-const GITHUB_REPO = 'wikimuseum';
 const GIST_URL = 'https://gist.github.com/';
-const NEW_ARTICLE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new?template=new-article.yml`;
-const UPDATE_ARTICLE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new?template=update-article.yml`;
-const DELETE_ARTICLE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new?template=delete-article.yml`;
+const NEW_URL = 'https://github.com/Digidai/wikimuseum/issues/new?template=new-article.yml';
+const UPDATE_URL = 'https://github.com/Digidai/wikimuseum/issues/new?template=update-article.yml';
+const DELETE_URL = 'https://github.com/Digidai/wikimuseum/issues/new?template=delete-article.yml';
 ---
 
-<BaseLayout title="发布文章" description="发布新的 Markdown 文章">
-  <div class="max-w-3xl mx-auto">
-    <header class="pb-8 border-b border-notion-border">
-      <h1 class="text-3xl font-bold text-notion-text">发布文章</h1>
-      <p class="text-notion-secondary mt-2">通过 GitHub Gist 发布 Markdown 文章</p>
-    </header>
+<BaseLayout title="发布文章" description="发布 Markdown 文章">
+  <div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6">发布文章</h1>
 
-    <section class="py-8 border-b border-notion-border">
-      <h2 class="text-lg font-semibold text-notion-text mb-6">发布步骤</h2>
-      <ol class="space-y-6">
-        <li class="flex gap-4">
-          <span class="flex-shrink-0 w-6 h-6 bg-notion-text text-notion-bg rounded-full flex items-center justify-center text-sm font-medium">1</span>
-          <div>
-            <div class="font-medium text-notion-text">创建 Gist</div>
-            <p class="text-notion-secondary text-sm mt-1">
-              文件名填 <code class="bg-notion-hover px-1.5 py-0.5 rounded text-xs">article.md</code>，粘贴文章内容
-            </p>
-            <a href={GIST_URL} target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-notion-blue hover:underline text-sm">
-              打开 GitHub Gist →
-            </a>
-          </div>
-        </li>
-        <li class="flex gap-4">
-          <span class="flex-shrink-0 w-6 h-6 bg-notion-text text-notion-bg rounded-full flex items-center justify-center text-sm font-medium">2</span>
-          <div>
-            <div class="font-medium text-notion-text">提交发布请求</div>
-            <p class="text-notion-secondary text-sm mt-1">填入 Gist 链接，系统将自动发布文章</p>
-            <a href={NEW_ARTICLE_URL} target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-notion-blue hover:underline text-sm">
-              提交发布请求 →
-            </a>
-          </div>
-        </li>
-      </ol>
-    </section>
+    <ol class="list-decimal list-inside space-y-2 mb-8">
+      <li><a href={GIST_URL} target="_blank" class="text-notion-blue hover:underline">创建 Gist</a>（文件名 article.md）</li>
+      <li><a href={NEW_URL} target="_blank" class="text-notion-blue hover:underline">提交发布请求</a></li>
+    </ol>
 
-    <section class="py-8">
-      <h2 class="text-lg font-semibold text-notion-text mb-6">管理文章</h2>
-      <div class="space-y-3">
-        <a href={UPDATE_ARTICLE_URL} target="_blank" rel="noopener noreferrer" class="block text-notion-text hover:text-notion-blue transition-colors">
-          更新文章 →
-        </a>
-        <a href={DELETE_ARTICLE_URL} target="_blank" rel="noopener noreferrer" class="block text-notion-text hover:text-notion-blue transition-colors">
-          删除文章 →
-        </a>
-      </div>
-    </section>
+    <h2 class="font-bold mb-3">管理</h2>
+    <ul class="space-y-1">
+      <li><a href={UPDATE_URL} target="_blank" class="text-notion-blue hover:underline">更新文章</a></li>
+      <li><a href={DELETE_URL} target="_blank" class="text-notion-blue hover:underline">删除文章</a></li>
+    </ul>
   </div>
 </BaseLayout>

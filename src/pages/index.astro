@@ -7,29 +7,22 @@ const articles = (await getCollection('articles'))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 ---
 
-<BaseLayout title="首页" description="WikiMuseum - 文章发布平台">
-  <div class="max-w-3xl mx-auto">
+<BaseLayout title="首页" description="WikiMuseum">
+  <div class="max-w-2xl mx-auto">
     {articles.length > 0 ? (
       <div>
         {articles.map((article) => (
           <ArticleCard
             title={article.data.title}
-            description={article.data.description}
             publishDate={article.data.publishDate}
             slug={article.id}
           />
         ))}
       </div>
     ) : (
-      <div class="py-16 text-center">
-        <p class="text-notion-secondary mb-4">还没有文章</p>
-        <a
-          href="/wikimuseum/publish/"
-          class="text-notion-blue hover:underline"
-        >
-          发布第一篇文章 →
-        </a>
-      </div>
+      <p class="text-notion-secondary">
+        还没有文章。<a href="/wikimuseum/publish/" class="text-notion-blue hover:underline">发布第一篇</a>
+      </p>
     )}
   </div>
 </BaseLayout>

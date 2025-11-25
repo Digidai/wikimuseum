@@ -5,10 +5,9 @@ import Header from '../components/Header.astro';
 interface Props {
   title: string;
   description?: string;
-  keywords?: string[];
 }
 
-const { title, description = 'WikiMuseum - 文章发布平台', keywords = [] } = Astro.props;
+const { title, description = 'WikiMuseum' } = Astro.props;
 const siteTitle = title ? `${title} | WikiMuseum` : 'WikiMuseum';
 ---
 
@@ -18,32 +17,13 @@ const siteTitle = title ? `${title} | WikiMuseum` : 'WikiMuseum';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
-    <meta name="robots" content="index, follow" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content={siteTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="zh_CN" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={siteTitle} />
-    <meta name="twitter:description" content={description} />
-
     <link rel="icon" type="image/svg+xml" href="/wikimuseum/favicon.svg" />
     <title>{siteTitle}</title>
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen">
     <Header />
-    <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-12">
+    <main class="px-6 py-8">
       <slot />
     </main>
-    <footer class="border-t border-notion-border bg-notion-bg">
-      <div class="max-w-6xl mx-auto px-6 py-8 text-center text-notion-tertiary text-sm">
-        <p>&copy; {new Date().getFullYear()} WikiMuseum</p>
-      </div>
-    </footer>
   </body>
 </html>
