@@ -5,20 +5,25 @@ export default {
     extend: {
       colors: {
         notion: {
-          bg: '#FAFAFA',
-          card: '#FFFFFF',
-          text: '#37352F',
-          muted: '#787774',
-          blue: '#2383E2',
-          border: '#E8E8E8',
-          hover: '#F1F1EF'
+          bg: '#FFFFFF',
+          subtle: '#F7F7F5',
+          text: '#191919',
+          secondary: '#6B6B6B',
+          tertiary: '#9B9B9B',
+          blue: '#0077D4',
+          border: '#E5E5E5',
+          hover: '#F0F0F0'
         }
       },
       fontFamily: {
-        sans: ['Inter', 'Noto Sans SC', 'system-ui', 'sans-serif']
+        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Noto Sans SC', 'sans-serif']
       },
       boxShadow: {
-        notion: '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06)'
+        card: '0 4px 24px rgba(0, 0, 0, 0.08)',
+        'card-hover': '0 8px 32px rgba(0, 0, 0, 0.12)'
+      },
+      borderRadius: {
+        'notion': '12px'
       }
     }
   },

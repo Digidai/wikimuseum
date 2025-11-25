@@ -8,7 +8,7 @@ interface Props {
   keywords?: string[];
 }
 
-const { title, description = 'WikiMuseum - 现代化文章发布平台', keywords = [] } = Astro.props;
+const { title, description = 'WikiMuseum - 文章发布平台', keywords = [] } = Astro.props;
 const siteTitle = title ? `${title} | WikiMuseum` : 'WikiMuseum';
 ---
 
@@ -35,13 +35,15 @@ const siteTitle = title ? `${title} | WikiMuseum` : 'WikiMuseum';
     <link rel="icon" type="image/svg+xml" href="/wikimuseum/favicon.svg" />
     <title>{siteTitle}</title>
   </head>
-  <body class="min-h-screen">
+  <body class="min-h-screen flex flex-col">
     <Header />
-    <main class="max-w-4xl mx-auto px-6 py-8">
+    <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-12">
       <slot />
     </main>
-    <footer class="max-w-4xl mx-auto px-6 py-8 text-center text-notion-muted text-sm border-t border-notion-border">
-      <p>&copy; {new Date().getFullYear()} WikiMuseum. All rights reserved.</p>
+    <footer class="border-t border-notion-border bg-notion-bg">
+      <div class="max-w-6xl mx-auto px-6 py-8 text-center text-notion-tertiary text-sm">
+        <p>&copy; {new Date().getFullYear()} WikiMuseum</p>
+      </div>
     </footer>
   </body>
 </html>

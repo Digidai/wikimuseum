@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply bg-notion-bg text-notion-text font-sans leading-relaxed;
+    @apply bg-notion-subtle text-notion-text font-sans leading-relaxed;
   }
 
   ::selection {
@@ -21,25 +21,25 @@
 
 @layer components {
   .prose {
-    @apply max-w-none text-[17px] leading-[1.8];
+    @apply max-w-none text-[17px] leading-[1.8] text-notion-text;
   }
 
   .prose h1 {
-    @apply text-2xl font-semibold mt-10 mb-6 text-notion-text;
+    @apply text-[32px] font-bold mt-12 mb-6 text-notion-text leading-tight;
   }
 
   .prose h2 {
-    @apply text-xl font-semibold mt-8 mb-4 text-notion-text;
+    @apply text-2xl font-semibold mt-10 mb-4 text-notion-text;
   }
 
   .prose h3 {
-    @apply text-lg font-medium mt-6 mb-3 text-notion-text;
+    @apply text-xl font-semibold mt-8 mb-3 text-notion-text;
   }
 
   .prose h4,
   .prose h5,
   .prose h6 {
-    @apply text-base font-medium mt-6 mb-2 text-notion-text;
+    @apply text-lg font-semibold mt-6 mb-2 text-notion-text;
   }
 
   .prose p {
@@ -51,37 +51,23 @@
   }
 
   .prose a {
-    @apply text-notion-blue hover:underline;
+    @apply text-notion-blue underline underline-offset-2 hover:opacity-80 transition-opacity;
   }
 
   .prose ul, .prose ol {
-    @apply my-5 pl-0 space-y-3;
+    @apply my-5 pl-6 space-y-2;
   }
 
   .prose li {
-    @apply text-notion-text leading-[1.8] pl-6 relative;
+    @apply text-notion-text leading-[1.8];
   }
 
-  .prose ul > li::before {
-    content: "";
-    @apply absolute left-0 top-[0.7em] w-1.5 h-1.5 bg-notion-text/60 rounded-full;
-  }
-
-  .prose ol {
-    counter-reset: list-counter;
+  .prose ul > li {
+    @apply list-disc;
   }
 
   .prose ol > li {
-    counter-increment: list-counter;
-  }
-
-  .prose ol > li::before {
-    content: counter(list-counter) ".";
-    @apply absolute left-0 text-notion-muted font-medium;
-  }
-
-  .prose li strong {
-    @apply text-notion-text font-semibold;
+    @apply list-decimal;
   }
 
   .prose code {
@@ -89,7 +75,7 @@
   }
 
   .prose pre {
-    @apply bg-notion-hover p-4 rounded my-6 overflow-x-auto;
+    @apply bg-notion-subtle p-5 rounded-notion my-6 overflow-x-auto border border-notion-border;
   }
 
   .prose pre code {
@@ -97,15 +83,15 @@
   }
 
   .prose blockquote {
-    @apply border-l-[3px] border-notion-text/20 pl-5 my-6 text-notion-muted not-italic;
+    @apply border-l-[3px] border-notion-border pl-5 my-6 text-notion-secondary italic;
   }
 
   .prose blockquote p {
-    @apply text-notion-muted;
+    @apply text-notion-secondary;
   }
 
   .prose img {
-    @apply my-6;
+    @apply rounded-notion my-6;
   }
 
   .prose hr {
@@ -117,7 +103,7 @@
   }
 
   .prose th {
-    @apply text-left font-medium p-3 border-b border-notion-border;
+    @apply text-left font-semibold p-3 bg-notion-subtle border-b border-notion-border;
   }
 
   .prose td {
