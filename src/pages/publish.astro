@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// GitHub repository info - update these values
-const GITHUB_OWNER = 'digidai';
+const GITHUB_OWNER = 'Digidai';
 const GITHUB_REPO = 'wikimuseum';
+const ISSUE_TEMPLATE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new?template=new-article.yml`;
 ---
 
 <BaseLayout title="发布文章" description="发布新的 Markdown 文章">
@@ -20,7 +20,7 @@ const GITHUB_REPO = 'wikimuseum';
         </label>
         <textarea
           id="markdown-input"
-          class="w-full h-96 px-4 py-3 border border-notion-border rounded-lg focus:outline-none focus:ring-2 focus:ring-notion-blue/50 focus:border-notion-blue font-mono text-sm resize-none"
+          class="w-full h-96 px-4 py-3 border border-notion-border rounded-lg focus:outline-none focus:ring-2 focus:ring-notion-blue/50 focus:border-notion-blue font-mono text-sm resize-none bg-white"
           placeholder="# 文章标题
 
 在这里粘贴您的 Markdown 内容...
@@ -31,53 +31,111 @@ const GITHUB_REPO = 'wikimuseum';
         ></textarea>
       </div>
 
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between gap-4">
         <p class="text-sm text-notion-muted">
           提示：发布后 AI 将自动生成 SEO 优化的标题、描述和关键词
         </p>
         <button
-          id="publish-btn"
-          class="px-6 py-3 bg-notion-blue text-white rounded-lg font-medium hover:bg-notion-blue/90 transition-colors flex items-center gap-2"
+          id="copy-btn"
+          class="px-4 py-2 border border-notion-border text-notion-text rounded-lg font-medium hover:bg-notion-hover transition-colors flex items-center gap-2 whitespace-nowrap"
         >
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
           </svg>
-          发布文章
+          复制内容
         </button>
       </div>
     </div>
 
-    <div class="mt-8 p-4 bg-notion-hover rounded-lg">
-      <h3 class="font-medium text-notion-text mb-2">发布流程说明</h3>
-      <ol class="text-sm text-notion-muted space-y-1 list-decimal list-inside">
-        <li>粘贴 Markdown 内容并点击发布</li>
-        <li>系统将跳转到 GitHub 创建 Issue</li>
-        <li>确认创建后，AI 将自动优化文章 SEO</li>
-        <li>优化完成后文章将自动发布到网站</li>
-      </ol>
+    <!-- 发布步骤 -->
+    <div class="mt-8 space-y-4">
+      <h2 class="text-xl font-semibold text-notion-text">发布步骤</h2>
+
+      <div class="grid gap-4">
+        <div class="flex items-start gap-4 p-4 bg-notion-card rounded-lg border border-notion-border">
+          <div class="flex-shrink-0 w-8 h-8 bg-notion-blue text-white rounded-full flex items-center justify-center font-semibold">1</div>
+          <div>
+            <h3 class="font-medium text-notion-text">复制 Markdown 内容</h3>
+            <p class="text-sm text-notion-muted mt-1">在上方输入框粘贴文章内容，然后点击「复制内容」按钮</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 bg-notion-card rounded-lg border border-notion-border">
+          <div class="flex-shrink-0 w-8 h-8 bg-notion-blue text-white rounded-full flex items-center justify-center font-semibold">2</div>
+          <div>
+            <h3 class="font-medium text-notion-text">前往 GitHub 创建 Issue</h3>
+            <p class="text-sm text-notion-muted mt-1">点击下方按钮，在打开的页面中粘贴文章内容</p>
+            <a
+              href={ISSUE_TEMPLATE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 mt-3 px-5 py-2.5 bg-notion-blue text-white rounded-lg font-medium hover:bg-notion-blue/90 transition-colors"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              前往 GitHub 发布
+            </a>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 bg-notion-card rounded-lg border border-notion-border">
+          <div class="flex-shrink-0 w-8 h-8 bg-notion-blue text-white rounded-full flex items-center justify-center font-semibold">3</div>
+          <div>
+            <h3 class="font-medium text-notion-text">等待自动处理</h3>
+            <p class="text-sm text-notion-muted mt-1">提交 Issue 后，AI 将自动优化 SEO 并发布文章，通常需要 1-2 分钟</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 前置条件提示 -->
+    <div class="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <div>
+          <h4 class="font-medium text-amber-800">首次使用前请确认</h4>
+          <ul class="text-sm text-amber-700 mt-1 space-y-1">
+            <li>• 已在 GitHub 仓库 Settings → Secrets 中添加 <code class="bg-amber-100 px-1 rounded">OPENROUTER_API_KEY</code></li>
+            <li>• 已在仓库 Labels 中创建 <code class="bg-amber-100 px-1 rounded">new-article</code> 标签</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
-  <script define:vars={{ GITHUB_OWNER, GITHUB_REPO }}>
-    const textarea = document.getElementById('markdown-input');
-    const publishBtn = document.getElementById('publish-btn');
+  <script>
+    const textarea = document.getElementById('markdown-input') as HTMLTextAreaElement;
+    const copyBtn = document.getElementById('copy-btn');
 
-    publishBtn.addEventListener('click', () => {
+    copyBtn?.addEventListener('click', async () => {
       const content = textarea.value.trim();
 
       if (!content) {
-        alert('请输入 Markdown 内容');
+        alert('请先输入 Markdown 内容');
         return;
       }
 
-      // Create GitHub issue URL with pre-filled content
-      const issueTitle = encodeURIComponent('新文章发布');
-      const issueBody = encodeURIComponent(content);
-      const labels = encodeURIComponent('new-article');
+      try {
+        await navigator.clipboard.writeText(content);
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.innerHTML = `
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          已复制
+        `;
+        copyBtn.classList.add('bg-green-50', 'border-green-300', 'text-green-700');
 
-      const issueUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new?title=${issueTitle}&body=${issueBody}&labels=${labels}`;
-
-      window.open(issueUrl, '_blank');
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHTML;
+          copyBtn.classList.remove('bg-green-50', 'border-green-300', 'text-green-700');
+        }, 2000);
+      } catch (err) {
+        alert('复制失败，请手动复制');
+      }
     });
   </script>
 </BaseLayout>
