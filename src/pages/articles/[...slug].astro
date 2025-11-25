@@ -1,17 +1,26 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
 
 export async function getStaticPaths() {
-  const articles = await getCollection('articles');
-  return articles.map((article) => ({
+  const articles = (await getCollection('articles'))
+    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+  return articles.map((article, index) => ({
     params: { slug: article.id },
-    props: { article }
+    props: { 
+      article,
+      // Older article (appears later in the sorted list)
+      prevArticle: index + 1 < articles.length ? articles[index + 1] : null,
+      // Newer article (appears earlier in the sorted list)
+      nextArticle: index > 0 ? articles[index - 1] : null,
+    }
   }));
 }
 
-const { article } = Astro.props;
-const { Content } = await render(article);
+const { article, prevArticle, nextArticle } = Astro.props;
+const { Content, headings } = await render(article);
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
@@ -19,13 +28,38 @@ const formatDate = (date: Date) => {
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
-  <article class="mx-auto max-w-prose">
-    <header class="mb-10 text-center">
-      <h1 class="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{article.data.title}</h1>
-      <time class="text-sm text-slate-500">{formatDate(article.data.publishDate)}</time>
-    </header>
-    <div class="prose prose-slate prose-lg mx-auto prose-headings:font-semibold prose-a:text-blue-600 hover:prose-a:text-blue-500">
-      <Content />
-    </div>
-  </article>
+  <div class="mx-auto w-full max-w-6xl lg:flex lg:gap-12">
+    <article class="min-w-0 flex-1">
+      <header class="mb-10 border-b border-slate-100 pb-10 text-center">
+        <h1 class="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{article.data.title}</h1>
+        <time class="text-sm text-slate-500">{formatDate(article.data.publishDate)}</time>
+      </header>
+      
+      <div class="prose prose-slate prose-lg mx-auto prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-img:rounded-xl prose-img:shadow-sm prose-code:rounded prose-code:bg-slate-100 prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none">
+        <Content />
+      </div>
+
+      <nav class="mt-16 grid gap-8 border-t border-slate-100 py-8 sm:grid-cols-2">
+        {prevArticle ? (
+          <a href={`/wikimuseum/articles/${prevArticle.id}/`} class="group flex flex-col gap-1 text-left transition-colors hover:bg-slate-50 -m-4 p-4 rounded-lg">
+            <span class="text-xs font-medium uppercase text-slate-500">上一篇</span>
+            <span class="font-medium text-slate-900 group-hover:text-blue-600 line-clamp-2">{prevArticle.data.title}</span>
+          </a>
+        ) : <div />}
+
+        {nextArticle ? (
+          <a href={`/wikimuseum/articles/${nextArticle.id}/`} class="group flex flex-col gap-1 text-right transition-colors hover:bg-slate-50 -m-4 p-4 rounded-lg">
+            <span class="text-xs font-medium uppercase text-slate-500">下一篇</span>
+            <span class="font-medium text-slate-900 group-hover:text-blue-600 line-clamp-2">{nextArticle.data.title}</span>
+          </a>
+        ) : <div />}
+      </nav>
+    </article>
+
+    <aside class="hidden w-64 shrink-0 lg:block">
+      <div class="sticky top-24">
+        <TableOfContents headings={headings} />
+      </div>
+    </aside>
+  </div>
 </BaseLayout>
