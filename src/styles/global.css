@@ -37,15 +37,15 @@
   }
 
   .prose h4 {
-    @apply text-lg font-bold mt-8 mb-3 text-notion-text py-2 px-3 bg-notion-hover/50 rounded-md -ml-3;
+    @apply text-lg font-bold mt-8 mb-3 text-notion-text;
   }
 
   .prose h5 {
-    @apply text-base font-bold mt-6 mb-2 text-notion-text border-l-2 border-notion-blue/50 pl-3;
+    @apply text-base font-bold mt-6 mb-2 text-notion-text;
   }
 
   .prose h6 {
-    @apply text-base font-semibold mt-5 mb-2 text-notion-text/80;
+    @apply text-sm font-bold mt-5 mb-2 text-notion-text uppercase tracking-wide;
   }
 
   .prose p {
