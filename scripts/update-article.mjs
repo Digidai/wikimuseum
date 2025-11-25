@@ -82,8 +82,26 @@ async function listArticles() {
   }
 }
 
+/**
+ * Clean content by removing HTML tags, placeholder text, and other artifacts
+ */
+function sanitizeContent(content) {
+  return content
+    // Remove common HTML tags that shouldn't be in markdown
+    .replace(/<\/?(?:article|section|div|span|header|footer|nav|main|aside)[^>]*>/gi, '')
+    // Remove placeholder text patterns
+    .replace(/^内容\.{2,}$/gm, '')
+    .replace(/^Content\.{2,}$/gim, '')
+    // Remove empty lines that result from above cleaning (but keep paragraph breaks)
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 function extractTitleAndClean(content) {
   let cleanContent = content.replace(/^---[\s\S]*?---\n?/, '').trim();
+
+  // Sanitize content (remove HTML tags and placeholders)
+  cleanContent = sanitizeContent(cleanContent);
 
   const h1Match = cleanContent.match(/^#\s+(.+)$/m);
   if (h1Match) {
