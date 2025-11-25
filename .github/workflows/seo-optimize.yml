@@ -1,11 +1,11 @@
-name: SEO Optimize & Publish
+name: Publish Article
 
 on:
   issues:
     types: [opened]
 
 jobs:
-  optimize:
+  publish:
     if: contains(github.event.issue.labels.*.name, 'new-article')
     runs-on: ubuntu-latest
     permissions:
@@ -30,19 +30,16 @@ jobs:
         with:
           script: |
             const body = context.payload.issue.body;
-            // Match Gist URL in the issue body
             const gistMatch = body.match(/https:\/\/gist\.github\.com\/[^\s\)]+/);
             if (!gistMatch) {
               core.setFailed('No Gist URL found in issue body');
               return;
             }
-            const gistUrl = gistMatch[0].replace(/[\)>\]]+$/, ''); // Clean trailing chars
+            const gistUrl = gistMatch[0].replace(/[\)>\]]+$/, '');
             console.log(`Found Gist URL: ${gistUrl}`);
             core.setOutput('gist_url', gistUrl);
 
-      - name: Run SEO optimization
-        env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      - name: Publish article
         run: |
           node scripts/seo-optimize.mjs "${{ steps.extract.outputs.gist_url }}"
 
@@ -65,7 +62,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: '✅ 文章已成功处理并发布！\n\nAI SEO 优化已完成，网站将在几分钟内更新。\n\n访问 https://digidai.github.io/wikimuseum/ 查看。'
+              body: '✅ 文章已成功发布！\n\n网站将在几分钟内更新。\n\n访问 https://digidai.github.io/wikimuseum/ 查看。'
             });
             await github.rest.issues.update({
               owner: context.repo.owner,

@@ -11,7 +11,7 @@ const ISSUE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new?
   <div class="max-w-3xl mx-auto">
     <h1 class="text-3xl font-bold text-notion-text mb-2">发布文章</h1>
     <p class="text-notion-muted mb-8">
-      粘贴您的 Markdown 内容，系统将通过 AI 自动优化 SEO 后发布。
+      粘贴您的 Markdown 内容，系统将自动提取标题和描述后发布。
     </p>
 
     <div class="bg-notion-card rounded-xl p-6 shadow-notion border border-notion-border">
@@ -116,23 +116,23 @@ const ISSUE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new?
           <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-semibold">4</div>
           <div>
             <h3 class="font-medium text-notion-text">等待自动处理</h3>
-            <p class="text-sm text-notion-muted mt-1">提交后 AI 将自动优化 SEO 并发布文章，通常需要 1-2 分钟</p>
+            <p class="text-sm text-notion-muted mt-1">提交后系统将自动发布文章，通常需要 1-2 分钟</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- 前置条件提示 -->
-    <div class="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+    <div class="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
       <div class="flex items-start gap-3">
-        <svg class="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <div>
-          <h4 class="font-medium text-amber-800">首次使用前请确认</h4>
-          <ul class="text-sm text-amber-700 mt-1 space-y-1">
-            <li>• 已在 GitHub 仓库 Settings → Secrets 中添加 <code class="bg-amber-100 px-1 rounded">OPENROUTER_API_KEY</code></li>
-            <li>• 已在仓库 Labels 中创建 <code class="bg-amber-100 px-1 rounded">new-article</code> 标签</li>
+          <h4 class="font-medium text-blue-800">提示</h4>
+          <ul class="text-sm text-blue-700 mt-1 space-y-1">
+            <li>• 文章标题会自动从 Markdown 的 <code class="bg-blue-100 px-1 rounded"># 标题</code> 提取</li>
+            <li>• 描述会自动从第一段正文提取</li>
           </ul>
         </div>
       </div>
