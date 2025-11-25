@@ -1,0 +1,21 @@
+# WikiMuseum
+
+> WikiMuseum 是一个现代化的文章发布平台，支持 Markdown 写作和 AI SEO 优化。
+
+## 网站信息
+- 网站类型: 博客/知识分享平台
+- 主要语言: 中文
+- 主要内容: 技术文章、知识分享、教程
+
+## 文章列表
+- [欢迎来到 WikiMuseum](https://digidai.github.io/wikimuseum/articles/welcome/): WikiMuseum 是一个支持 Markdown 发布、AI SEO 优化的现代博客平台
+
+## 主要页面
+- [首页](https://digidai.github.io/wikimuseum/): 文章列表和网站介绍
+- [发布文章](https://digidai.github.io/wikimuseum/publish/): 发布新的 Markdown 文章
+
+## 联系方式
+如需联系，请通过 GitHub Issues 提交。
+
+## 版权信息
+所有文章内容版权归原作者所有。

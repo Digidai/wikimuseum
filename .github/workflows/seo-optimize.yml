@@ -1,0 +1,61 @@
+name: SEO Optimize & Publish
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  optimize:
+    if: contains(github.event.issue.labels.*.name, 'new-article')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run SEO optimization
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          # Get issue body content
+          CONTENT='${{ github.event.issue.body }}'
+          node scripts/seo-optimize.mjs "$CONTENT"
+
+      - name: Generate llms.txt
+        run: node scripts/generate-llms.mjs
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add new article from issue #${{ github.event.issue.number }}"
+          git push
+
+      - name: Close issue with comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ 文章已成功处理并发布！AI SEO 优化已完成，网站将在几分钟内更新。'
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            });

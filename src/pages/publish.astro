@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// GitHub repository info - update these values
+const GITHUB_OWNER = 'digidai';
+const GITHUB_REPO = 'wikimuseum';
+---
+
+<BaseLayout title="发布文章" description="发布新的 Markdown 文章">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold text-notion-text mb-2">发布文章</h1>
+    <p class="text-notion-muted mb-8">
+      粘贴您的 Markdown 内容，系统将通过 AI 自动优化 SEO 后发布。
+    </p>
+
+    <div class="bg-notion-card rounded-xl p-6 shadow-notion border border-notion-border">
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-notion-text mb-2">
+          Markdown 内容
+        </label>
+        <textarea
+          id="markdown-input"
+          class="w-full h-96 px-4 py-3 border border-notion-border rounded-lg focus:outline-none focus:ring-2 focus:ring-notion-blue/50 focus:border-notion-blue font-mono text-sm resize-none"
+          placeholder="# 文章标题
+
+在这里粘贴您的 Markdown 内容...
+
+## 第一章
+
+正文内容..."
+        ></textarea>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <p class="text-sm text-notion-muted">
+          提示：发布后 AI 将自动生成 SEO 优化的标题、描述和关键词
+        </p>
+        <button
+          id="publish-btn"
+          class="px-6 py-3 bg-notion-blue text-white rounded-lg font-medium hover:bg-notion-blue/90 transition-colors flex items-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg>
+          发布文章
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-8 p-4 bg-notion-hover rounded-lg">
+      <h3 class="font-medium text-notion-text mb-2">发布流程说明</h3>
+      <ol class="text-sm text-notion-muted space-y-1 list-decimal list-inside">
+        <li>粘贴 Markdown 内容并点击发布</li>
+        <li>系统将跳转到 GitHub 创建 Issue</li>
+        <li>确认创建后，AI 将自动优化文章 SEO</li>
+        <li>优化完成后文章将自动发布到网站</li>
+      </ol>
+    </div>
+  </div>
+
+  <script define:vars={{ GITHUB_OWNER, GITHUB_REPO }}>
+    const textarea = document.getElementById('markdown-input');
+    const publishBtn = document.getElementById('publish-btn');
+
+    publishBtn.addEventListener('click', () => {
+      const content = textarea.value.trim();
+
+      if (!content) {
+        alert('请输入 Markdown 内容');
+        return;
+      }
+
+      // Create GitHub issue URL with pre-filled content
+      const issueTitle = encodeURIComponent('新文章发布');
+      const issueBody = encodeURIComponent(content);
+      const labels = encodeURIComponent('new-article');
+
+      const issueUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new?title=${issueTitle}&body=${issueBody}&labels=${labels}`;
+
+      window.open(issueUrl, '_blank');
+    });
+  </script>
+</BaseLayout>

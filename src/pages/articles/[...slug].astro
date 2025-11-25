@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleNav from '../../components/ArticleNav.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  const sortedArticles = articles.sort(
+    (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+  );
+
+  return sortedArticles.map((article, index) => ({
+    params: { slug: article.id },
+    props: {
+      article,
+      prev: sortedArticles[index + 1] || null,
+      next: sortedArticles[index - 1] || null
+    }
+  }));
+}
+
+const { article, prev, next } = Astro.props;
+const { Content } = await render(article);
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+};
+---
+
+<BaseLayout
+  title={article.data.title}
+  description={article.data.description}
+  keywords={article.data.keywords}
+>
+  <article>
+    <header class="mb-8 pb-8 border-b border-notion-border">
+      <time class="text-sm text-notion-muted">
+        {formatDate(article.data.publishDate)}
+      </time>
+      <h1 class="text-4xl font-bold mt-2 text-notion-text">
+        {article.data.title}
+      </h1>
+      {article.data.keywords && article.data.keywords.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-4">
+          {article.data.keywords.map((keyword: string) => (
+            <span class="px-3 py-1 bg-notion-hover text-notion-muted text-sm rounded-full">
+              {keyword}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+
+  <ArticleNav prev={prev} next={next} />
+</BaseLayout>

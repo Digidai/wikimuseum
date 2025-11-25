@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git push:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(npm run build)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(npx astro build:*)",
+      "Bash(README.md)",
+      "WebFetch(domain:digidai.github.io)",
+      "WebFetch(domain:results-receiver.actions.githubusercontent.com)",
+      "WebFetch(domain:registry.npmjs.org)",
+      "WebFetch(domain:r.jina.ai)",
+      "WebFetch(domain:eu-central-1-1.aws.cloud2.influxdata.com)",
+      "Bash(sed:*)",
+      "Bash(git -C /Users/dai/Documents/CursorProjects/digidai.github.io status)",
+      "Bash(git -C /Users/dai/Documents/CursorProjects/digidai.github.io log --oneline -10)",
+      "Bash(npm run validate:*)",
+      "Bash(npm run format:check:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(git -C /Users/dai/Documents/CursorProjects/digidai.github.io diff --stat public/sitemap/sitemap.xml)",
+      "WebFetch(domain:codeload.github.com)",
+      "WebFetch(domain:statsig.anthropic.com)",
+      "WebFetch(domain:api.anthropic.com)",
+      "WebFetch(domain:o1158394.ingest.us.sentry.io)",
+      "WebFetch(domain:http-intake.logs.datadoghq.com)"
+    ],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "bypassPermissions"
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  }
+}

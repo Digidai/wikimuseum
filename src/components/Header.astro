@@ -1,0 +1,32 @@
+---
+const navItems = [
+  { href: '/wikimuseum/', label: '首页' },
+  { href: '/wikimuseum/publish/', label: '发布文章' }
+];
+---
+
+<header class="sticky top-0 z-50 bg-notion-card/80 backdrop-blur-md border-b border-notion-border">
+  <nav class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/wikimuseum/" class="flex items-center gap-2 group">
+      <span class="text-2xl">📚</span>
+      <span class="font-semibold text-lg text-notion-text group-hover:text-notion-blue transition-colors">
+        WikiMuseum
+      </span>
+    </a>
+
+    <div class="flex items-center gap-2">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+            item.label === '发布文章'
+              ? 'bg-notion-blue text-white hover:bg-notion-blue/90'
+              : 'text-notion-muted hover:text-notion-text hover:bg-notion-hover'
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>

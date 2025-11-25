@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-notion-bg text-notion-text font-sans;
+  }
+
+  ::selection {
+    @apply bg-notion-blue/20;
+  }
+}
+
+@layer components {
+  .prose {
+    @apply max-w-none;
+  }
+
+  .prose h1 {
+    @apply text-4xl font-bold mt-8 mb-4 text-notion-text;
+  }
+
+  .prose h2 {
+    @apply text-2xl font-semibold mt-8 mb-3 text-notion-text;
+  }
+
+  .prose h3 {
+    @apply text-xl font-medium mt-6 mb-2 text-notion-text;
+  }
+
+  .prose p {
+    @apply my-4 leading-relaxed text-notion-text/90;
+  }
+
+  .prose a {
+    @apply text-notion-blue underline decoration-notion-blue/30 hover:decoration-notion-blue transition-colors;
+  }
+
+  .prose ul, .prose ol {
+    @apply my-4 pl-6;
+  }
+
+  .prose li {
+    @apply my-1;
+  }
+
+  .prose ul li {
+    @apply list-disc;
+  }
+
+  .prose ol li {
+    @apply list-decimal;
+  }
+
+  .prose code {
+    @apply bg-notion-hover px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+
+  .prose pre {
+    @apply bg-notion-hover p-4 rounded-lg my-4 overflow-x-auto;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-notion-border pl-4 my-4 italic text-notion-muted;
+  }
+
+  .prose img {
+    @apply rounded-lg my-4;
+  }
+
+  .prose hr {
+    @apply my-8 border-notion-border;
+  }
+}

@@ -1,0 +1,26 @@
+name: 发布新文章
+description: 发布一篇新的 Markdown 文章
+title: "新文章发布"
+labels: ["new-article"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 发布新文章
+        在下方粘贴您的 Markdown 文章内容。系统将自动进行 AI SEO 优化后发布。
+
+  - type: textarea
+    id: content
+    attributes:
+      label: 文章内容
+      description: 粘贴您的 Markdown 格式文章内容
+      placeholder: |
+        # 文章标题
+
+        ## 简介
+        文章的简介内容...
+
+        ## 正文
+        文章的正文内容...
+    validations:
+      required: true

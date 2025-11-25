@@ -1,0 +1,57 @@
+---
+interface Article {
+  id: string;
+  data: {
+    title: string;
+  };
+}
+
+interface Props {
+  prev?: Article;
+  next?: Article;
+}
+
+const { prev, next } = Astro.props;
+---
+
+<nav class="mt-12 pt-8 border-t border-notion-border">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {prev ? (
+      <a
+        href={`/wikimuseum/articles/${prev.id}/`}
+        class="group flex items-center gap-3 p-4 rounded-lg border border-notion-border hover:border-notion-blue/30 hover:bg-notion-hover transition-all"
+      >
+        <svg class="w-5 h-5 text-notion-muted group-hover:text-notion-blue group-hover:-translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm text-notion-muted">上一篇</div>
+          <div class="font-medium text-notion-text group-hover:text-notion-blue truncate transition-colors">
+            {prev.data.title}
+          </div>
+        </div>
+      </a>
+    ) : (
+      <div></div>
+    )}
+
+    {next ? (
+      <a
+        href={`/wikimuseum/articles/${next.id}/`}
+        class="group flex items-center gap-3 p-4 rounded-lg border border-notion-border hover:border-notion-blue/30 hover:bg-notion-hover transition-all md:text-right"
+      >
+        <div class="flex-1 min-w-0">
+          <div class="text-sm text-notion-muted">下一篇</div>
+          <div class="font-medium text-notion-text group-hover:text-notion-blue truncate transition-colors">
+            {next.data.title}
+          </div>
+        </div>
+        <svg class="w-5 h-5 text-notion-muted group-hover:text-notion-blue group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    ) : (
+      <div></div>
+    )}
+  </div>
+</nav>
