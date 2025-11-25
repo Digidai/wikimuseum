@@ -7,10 +7,11 @@
 @layer base {
   html {
     @apply antialiased;
+    font-size: 16px;
   }
 
   body {
-    @apply bg-notion-bg text-notion-text font-sans;
+    @apply bg-notion-bg text-notion-text font-sans leading-relaxed;
   }
 
   ::selection {
@@ -20,66 +21,104 @@
 
 @layer components {
   .prose {
-    @apply max-w-none;
+    @apply max-w-none text-[17px] leading-[1.8];
   }
 
   .prose h1 {
-    @apply text-4xl font-bold mt-8 mb-4 text-notion-text;
+    @apply text-4xl font-bold mt-10 mb-6 text-notion-text tracking-tight;
   }
 
   .prose h2 {
-    @apply text-2xl font-semibold mt-8 mb-3 text-notion-text;
+    @apply text-2xl font-semibold mt-10 mb-4 text-notion-text tracking-tight;
   }
 
   .prose h3 {
-    @apply text-xl font-medium mt-6 mb-2 text-notion-text;
+    @apply text-xl font-semibold mt-8 mb-3 text-notion-text;
   }
 
   .prose p {
-    @apply my-4 leading-relaxed text-notion-text/90;
+    @apply my-5 text-notion-text leading-[1.8];
+  }
+
+  .prose strong {
+    @apply font-semibold text-notion-text;
   }
 
   .prose a {
-    @apply text-notion-blue underline decoration-notion-blue/30 hover:decoration-notion-blue transition-colors;
+    @apply text-notion-blue underline decoration-notion-blue/40 underline-offset-2 hover:decoration-notion-blue transition-colors;
   }
 
   .prose ul, .prose ol {
-    @apply my-4 pl-6;
+    @apply my-5 pl-0 space-y-3;
   }
 
   .prose li {
-    @apply my-1;
+    @apply text-notion-text leading-[1.8] pl-6 relative;
   }
 
-  .prose ul li {
-    @apply list-disc;
+  .prose ul > li::before {
+    content: "";
+    @apply absolute left-0 top-[0.7em] w-1.5 h-1.5 bg-notion-text/60 rounded-full;
   }
 
-  .prose ol li {
-    @apply list-decimal;
+  .prose ol {
+    counter-reset: list-counter;
+  }
+
+  .prose ol > li {
+    counter-increment: list-counter;
+  }
+
+  .prose ol > li::before {
+    content: counter(list-counter) ".";
+    @apply absolute left-0 text-notion-muted font-medium;
+  }
+
+  .prose li strong {
+    @apply text-notion-text font-semibold;
   }
 
   .prose code {
-    @apply bg-notion-hover px-1.5 py-0.5 rounded text-sm font-mono;
+    @apply bg-notion-hover px-1.5 py-1 rounded text-[15px] font-mono text-notion-text border border-notion-border/50;
   }
 
   .prose pre {
-    @apply bg-notion-hover p-4 rounded-lg my-4 overflow-x-auto;
+    @apply bg-[#F7F6F3] p-5 rounded-lg my-6 overflow-x-auto border border-notion-border/50;
   }
 
   .prose pre code {
-    @apply bg-transparent p-0;
+    @apply bg-transparent p-0 border-0 text-[14px];
   }
 
   .prose blockquote {
-    @apply border-l-4 border-notion-border pl-4 my-4 italic text-notion-muted;
+    @apply border-l-[3px] border-notion-text/20 pl-5 my-6 text-notion-muted not-italic;
+  }
+
+  .prose blockquote p {
+    @apply text-notion-muted;
   }
 
   .prose img {
-    @apply rounded-lg my-4;
+    @apply rounded-lg my-6 shadow-sm;
   }
 
   .prose hr {
-    @apply my-8 border-notion-border;
+    @apply my-10 border-notion-border;
+  }
+
+  .prose table {
+    @apply w-full my-6 border-collapse;
+  }
+
+  .prose th {
+    @apply text-left font-semibold p-3 bg-notion-hover border-b border-notion-border;
+  }
+
+  .prose td {
+    @apply p-3 border-b border-notion-border;
+  }
+
+  .prose tr:hover td {
+    @apply bg-notion-hover/50;
   }
 }
