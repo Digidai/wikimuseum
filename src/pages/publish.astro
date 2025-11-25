@@ -11,62 +11,14 @@ const DELETE_ARTICLE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/is
 
 <BaseLayout title="发布文章" description="发布新的 Markdown 文章">
   <div class="max-w-3xl mx-auto">
-    <h1 class="text-3xl font-bold text-notion-text mb-2">发布文章</h1>
-    <p class="text-notion-muted mb-8">
-      粘贴您的 Markdown 内容，系统将自动提取标题和描述后发布。
-    </p>
-
-    <div class="bg-notion-card rounded-xl p-6 shadow-notion border border-notion-border">
-      <div class="mb-6">
-        <label class="block text-sm font-medium text-notion-text mb-2">
-          Markdown 内容
-        </label>
-        <textarea
-          id="markdown-input"
-          class="w-full h-96 px-4 py-3 border border-notion-border rounded-lg focus:outline-none focus:ring-2 focus:ring-notion-blue/50 focus:border-notion-blue font-mono text-sm resize-none bg-white"
-          placeholder="# 文章标题
-
-在这里粘贴您的 Markdown 内容...
-
-## 第一章
-
-正文内容..."
-        ></textarea>
-      </div>
-
-      <div class="flex items-center justify-between gap-4">
-        <p class="text-sm text-notion-muted">
-          支持任意长度的文章，通过 Gist 中转
-        </p>
-        <button
-          id="copy-btn"
-          class="px-4 py-2 border border-notion-border text-notion-text rounded-lg font-medium hover:bg-notion-hover transition-colors flex items-center gap-2 whitespace-nowrap"
-        >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-          </svg>
-          复制内容
-        </button>
-      </div>
-    </div>
-
     <!-- 发布步骤 -->
-    <div class="mt-8 space-y-4">
+    <div class="space-y-4">
       <h2 class="text-xl font-semibold text-notion-text">发布步骤</h2>
 
       <div class="grid gap-4">
         <!-- Step 1 -->
         <div class="flex items-start gap-4 p-4 bg-notion-card rounded-lg border border-notion-border">
           <div class="flex-shrink-0 w-8 h-8 bg-notion-blue text-white rounded-full flex items-center justify-center font-semibold">1</div>
-          <div class="flex-1">
-            <h3 class="font-medium text-notion-text">复制 Markdown 内容</h3>
-            <p class="text-sm text-notion-muted mt-1">在上方输入框粘贴文章内容，然后点击「复制内容」按钮</p>
-          </div>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="flex items-start gap-4 p-4 bg-notion-card rounded-lg border border-notion-border">
-          <div class="flex-shrink-0 w-8 h-8 bg-notion-blue text-white rounded-full flex items-center justify-center font-semibold">2</div>
           <div class="flex-1">
             <h3 class="font-medium text-notion-text">创建 GitHub Gist</h3>
             <p class="text-sm text-notion-muted mt-1">点击下方按钮，在 Gist 页面粘贴内容并创建</p>
@@ -93,9 +45,9 @@ const DELETE_ARTICLE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/is
           </div>
         </div>
 
-        <!-- Step 3 -->
+        <!-- Step 2 -->
         <div class="flex items-start gap-4 p-4 bg-notion-card rounded-lg border border-notion-border">
-          <div class="flex-shrink-0 w-8 h-8 bg-notion-blue text-white rounded-full flex items-center justify-center font-semibold">3</div>
+          <div class="flex-shrink-0 w-8 h-8 bg-notion-blue text-white rounded-full flex items-center justify-center font-semibold">2</div>
           <div class="flex-1">
             <h3 class="font-medium text-notion-text">提交发布请求</h3>
             <p class="text-sm text-notion-muted mt-1">点击下方按钮，在 Issue 中填入 Gist 链接</p>
@@ -113,9 +65,9 @@ const DELETE_ARTICLE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/is
           </div>
         </div>
 
-        <!-- Step 4 -->
+        <!-- Step 3 -->
         <div class="flex items-start gap-4 p-4 bg-notion-card rounded-lg border border-notion-border">
-          <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-semibold">4</div>
+          <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-semibold">3</div>
           <div>
             <h3 class="font-medium text-notion-text">等待自动处理</h3>
             <p class="text-sm text-notion-muted mt-1">提交后系统将自动发布文章，通常需要 1-2 分钟</p>
@@ -215,37 +167,4 @@ const DELETE_ARTICLE_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/is
       </div>
     </div>
   </div>
-
-  <script>
-    const textarea = document.getElementById('markdown-input') as HTMLTextAreaElement;
-    const copyBtn = document.getElementById('copy-btn');
-
-    copyBtn?.addEventListener('click', async () => {
-      const content = textarea.value.trim();
-
-      if (!content) {
-        alert('请先输入 Markdown 内容');
-        return;
-      }
-
-      try {
-        await navigator.clipboard.writeText(content);
-        const originalHTML = copyBtn.innerHTML;
-        copyBtn.innerHTML = `
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          已复制
-        `;
-        copyBtn.classList.add('bg-green-50', 'border-green-300', 'text-green-700');
-
-        setTimeout(() => {
-          copyBtn.innerHTML = originalHTML;
-          copyBtn.classList.remove('bg-green-50', 'border-green-300', 'text-green-700');
-        }, 2000);
-      } catch (err) {
-        alert('复制失败，请手动复制');
-      }
-    });
-  </script>
 </BaseLayout>
