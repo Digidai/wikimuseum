@@ -1,0 +1,33 @@
+name: 更新文章
+description: 更新一篇已发布的文章内容
+title: "更新文章"
+labels: ["update-article"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 更新文章
+        请填写要更新的文章文件名和新内容的 Gist 链接。
+
+        例如，文章 URL 为：
+        `https://digidai.github.io/wikimuseum/articles/google大模型深度研究报告-技术演进与行业影响-1764071590944/`
+
+        则文件名为：`google大模型深度研究报告-技术演进与行业影响-1764071590944`
+
+  - type: input
+    id: article_filename
+    attributes:
+      label: 文章文件名
+      description: 从文章 URL 中复制文件名（不含 .md 后缀）
+      placeholder: "例如：google大模型深度研究报告-技术演进与行业影响-1764071590944"
+    validations:
+      required: true
+
+  - type: input
+    id: gist_url
+    attributes:
+      label: 新内容 Gist 链接
+      description: 填入包含更新后 Markdown 内容的 Gist URL
+      placeholder: "https://gist.github.com/username/xxxxx"
+    validations:
+      required: true

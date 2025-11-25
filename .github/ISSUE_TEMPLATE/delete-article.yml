@@ -1,0 +1,24 @@
+name: 删除文章
+description: 删除一篇已发布的文章
+title: "删除文章"
+labels: ["delete-article"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 删除文章
+        请填写要删除的文章文件名（从 URL 中获取）。
+
+        例如，文章 URL 为：
+        `https://digidai.github.io/wikimuseum/articles/google大模型深度研究报告-技术演进与行业影响-1764071590944/`
+
+        则文件名为：`google大模型深度研究报告-技术演进与行业影响-1764071590944`
+
+  - type: input
+    id: article_filename
+    attributes:
+      label: 文章文件名
+      description: 从文章 URL 中复制文件名（不含 .md 后缀）
+      placeholder: "例如：google大模型深度研究报告-技术演进与行业影响-1764071590944"
+    validations:
+      required: true

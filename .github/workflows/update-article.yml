@@ -1,0 +1,100 @@
+name: Update Article
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  update:
+    if: contains(github.event.issue.labels.*.name, 'update-article')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Extract info from issue
+        id: extract
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body;
+
+            // Extract filename
+            const filenameMatch = body.match(/### 文章文件名\s*\n\s*(.+)/);
+            if (!filenameMatch) {
+              core.setFailed('Could not extract article filename from issue');
+              return;
+            }
+            const filename = filenameMatch[1].trim();
+
+            // Extract Gist URL
+            const gistMatch = body.match(/https:\/\/gist\.github\.com\/[^\s\)]+/);
+            if (!gistMatch) {
+              core.setFailed('No Gist URL found in issue body');
+              return;
+            }
+            const gistUrl = gistMatch[0].replace(/[\)>\]]+$/, '');
+
+            console.log(`Filename: ${filename}`);
+            console.log(`Gist URL: ${gistUrl}`);
+
+            core.setOutput('filename', filename);
+            core.setOutput('gist_url', gistUrl);
+
+      - name: Update article
+        run: |
+          node scripts/update-article.mjs "${{ steps.extract.outputs.filename }}" "${{ steps.extract.outputs.gist_url }}"
+
+      - name: Generate llms.txt
+        run: node scripts/generate-llms.mjs
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Update article: ${{ steps.extract.outputs.filename }}"
+          git push
+
+      - name: Build with Astro
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
+      - name: Close issue with comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ 文章已更新！\n\n网站已更新，访问 https://digidai.github.io/wikimuseum/ 查看。'
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            });
