@@ -28,38 +28,48 @@ const formatDate = (date: Date) => {
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
-  <div class="mx-auto w-full max-w-6xl lg:flex lg:gap-12">
-    <article class="min-w-0 flex-1">
-      <header class="mb-10 border-b border-slate-100 pb-10 text-center">
-        <h1 class="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{article.data.title}</h1>
-        <time class="text-sm text-slate-500">{formatDate(article.data.publishDate)}</time>
-      </header>
-      
-      <div class="prose prose-slate prose-lg mx-auto prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-img:rounded-xl prose-img:shadow-sm prose-code:rounded prose-code:bg-slate-100 prose-code:px-1 prose-code:py-0.5 prose-code:before:content-none prose-code:after:content-none">
-        <Content />
-      </div>
-
-      <nav class="mt-16 grid gap-8 border-t border-slate-100 py-8 sm:grid-cols-2">
-        {prevArticle ? (
-          <a href={`/wikimuseum/articles/${prevArticle.id}/`} class="group flex flex-col gap-1 text-left transition-colors hover:bg-slate-50 -m-4 p-4 rounded-lg">
-            <span class="text-xs font-medium uppercase text-slate-500">上一篇</span>
-            <span class="font-medium text-slate-900 group-hover:text-blue-600 line-clamp-2">{prevArticle.data.title}</span>
-          </a>
-        ) : <div />}
-
-        {nextArticle ? (
-          <a href={`/wikimuseum/articles/${nextArticle.id}/`} class="group flex flex-col gap-1 text-right transition-colors hover:bg-slate-50 -m-4 p-4 rounded-lg">
-            <span class="text-xs font-medium uppercase text-slate-500">下一篇</span>
-            <span class="font-medium text-slate-900 group-hover:text-blue-600 line-clamp-2">{nextArticle.data.title}</span>
-          </a>
-        ) : <div />}
-      </nav>
-    </article>
-
-    <aside class="hidden w-64 shrink-0 lg:block">
-      <div class="sticky top-24">
+  <div class="mx-auto flex max-w-7xl flex-col gap-12 lg:flex-row">
+    {/* Sidebar (TOC) - Desktop Only */}
+    <aside class="hidden lg:block lg:w-72 lg:shrink-0">
+      <div class="sticky top-24 overflow-y-auto max-h-[calc(100vh-6rem)]">
         <TableOfContents headings={headings} />
       </div>
     </aside>
+
+    {/* Main Content */}
+    <main class="min-w-0 flex-1">
+      <article class="mx-auto max-w-3xl">
+        <header class="mb-10 border-b border-slate-100 pb-10">
+          <div class="mb-6 flex items-center gap-3 text-sm text-slate-500">
+            <a href="/wikimuseum/" class="hover:text-blue-600 hover:underline">文章</a>
+            <span>&rsaquo;</span>
+            <time>{formatDate(article.data.publishDate)}</time>
+          </div>
+          <h1 class="mb-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl sm:leading-tight">{article.data.title}</h1>
+        </header>
+        
+        <div class="prose prose-slate prose-lg max-w-none prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-img:rounded-2xl prose-img:shadow-md prose-code:rounded prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-code:text-slate-700 prose-code:before:content-none prose-code:after:content-none">
+          <Content />
+        </div>
+
+        <hr class="my-12 border-slate-100" />
+
+        <nav class="grid gap-6 sm:grid-cols-2">
+          {prevArticle ? (
+            <a href={`/wikimuseum/articles/${prevArticle.id}/`} class="group flex flex-col rounded-2xl border border-slate-200 p-6 transition-all hover:border-blue-300 hover:shadow-md">
+              <span class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-blue-600">上一篇</span>
+              <span class="font-semibold text-slate-900 group-hover:text-blue-700">{prevArticle.data.title}</span>
+            </a>
+          ) : <div />}
+
+          {nextArticle ? (
+            <a href={`/wikimuseum/articles/${nextArticle.id}/`} class="group flex flex-col items-end rounded-2xl border border-slate-200 p-6 text-right transition-all hover:border-blue-300 hover:shadow-md">
+              <span class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-blue-600">下一篇</span>
+              <span class="font-semibold text-slate-900 group-hover:text-blue-700">{nextArticle.data.title}</span>
+            </a>
+          ) : <div />}
+        </nav>
+      </article>
+    </main>
   </div>
 </BaseLayout>
