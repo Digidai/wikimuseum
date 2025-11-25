@@ -8,31 +8,28 @@ const articles = (await getCollection('articles'))
 ---
 
 <BaseLayout title="首页" description="WikiMuseum - 文章发布平台">
-  <div class="mb-12">
-    <h1 class="text-4xl font-bold text-notion-text mb-3">文章</h1>
-    <p class="text-notion-secondary text-lg">最新发布的内容</p>
+  <div class="max-w-3xl mx-auto">
+    {articles.length > 0 ? (
+      <div>
+        {articles.map((article) => (
+          <ArticleCard
+            title={article.data.title}
+            description={article.data.description}
+            publishDate={article.data.publishDate}
+            slug={article.id}
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="py-16 text-center">
+        <p class="text-notion-secondary mb-4">还没有文章</p>
+        <a
+          href="/wikimuseum/publish/"
+          class="text-notion-blue hover:underline"
+        >
+          发布第一篇文章 →
+        </a>
+      </div>
+    )}
   </div>
-
-  {articles.length > 0 ? (
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {articles.map((article) => (
-        <ArticleCard
-          title={article.data.title}
-          description={article.data.description}
-          publishDate={article.data.publishDate}
-          slug={article.id}
-        />
-      ))}
-    </div>
-  ) : (
-    <div class="text-center py-20">
-      <p class="text-notion-secondary text-lg mb-4">还没有文章</p>
-      <a
-        href="/wikimuseum/publish/"
-        class="inline-block px-6 py-3 bg-notion-text text-notion-bg rounded-notion font-medium hover:opacity-90 transition-opacity"
-      >
-        发布第一篇文章
-      </a>
-    </div>
-  )}
 </BaseLayout>

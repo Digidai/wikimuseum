@@ -15,30 +15,18 @@ const formatDate = (date: Date) => {
     day: 'numeric'
   }).format(date);
 };
-
-// Generate a subtle gradient based on title
-const colors = ['#F0E7FF', '#E7F0FF', '#E7FFF0', '#FFF0E7', '#FFE7F0', '#E7FFFF'];
-const colorIndex = title.length % colors.length;
-const bgColor = colors[colorIndex];
 ---
 
-<a href={`/wikimuseum/articles/${slug}/`} class="block group">
-  <article class="bg-notion-bg rounded-notion overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-300">
-    <div class="h-40 flex items-center justify-center" style={`background-color: ${bgColor}`}>
-      <span class="text-4xl opacity-60">
-        {title.charAt(0)}
-      </span>
-    </div>
-    <div class="p-6">
-      <time class="text-sm text-notion-tertiary">
-        {formatDate(publishDate)}
-      </time>
-      <h2 class="text-xl font-semibold mt-2 mb-3 text-notion-text group-hover:text-notion-blue transition-colors line-clamp-2">
-        {title}
-      </h2>
-      <p class="text-notion-secondary text-[15px] leading-relaxed line-clamp-2">
-        {description}
-      </p>
-    </div>
+<a href={`/wikimuseum/articles/${slug}/`} class="block group py-8 border-b border-notion-border">
+  <article>
+    <time class="text-sm text-notion-tertiary">
+      {formatDate(publishDate)}
+    </time>
+    <h2 class="text-2xl font-semibold mt-2 mb-3 text-notion-text group-hover:text-notion-blue transition-colors">
+      {title}
+    </h2>
+    <p class="text-notion-secondary leading-relaxed line-clamp-2">
+      {description}
+    </p>
   </article>
 </a>

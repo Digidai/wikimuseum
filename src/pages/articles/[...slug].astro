@@ -36,31 +36,31 @@ const formatDate = (date: Date) => {
   description={article.data.description}
   keywords={article.data.keywords}
 >
-  <article class="max-w-3xl mx-auto">
-    <header class="mb-10">
-      <time class="text-sm text-notion-tertiary">
-        {formatDate(article.data.publishDate)}
-      </time>
-      <h1 class="text-[40px] font-bold mt-3 text-notion-text leading-tight">
-        {article.data.title}
-      </h1>
-      {article.data.keywords && article.data.keywords.length > 0 && (
-        <div class="flex flex-wrap gap-2 mt-5">
-          {article.data.keywords.map((keyword: string) => (
-            <span class="px-3 py-1 bg-notion-hover text-notion-secondary text-sm rounded-full">
-              {keyword}
-            </span>
-          ))}
-        </div>
-      )}
-    </header>
-
-    <div class="prose">
-      <Content />
-    </div>
-  </article>
-
   <div class="max-w-3xl mx-auto">
+    <article>
+      <header class="pb-8 border-b border-notion-border">
+        <time class="text-sm text-notion-tertiary">
+          {formatDate(article.data.publishDate)}
+        </time>
+        <h1 class="text-3xl font-bold mt-2 text-notion-text leading-tight">
+          {article.data.title}
+        </h1>
+        {article.data.keywords && article.data.keywords.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-4">
+            {article.data.keywords.map((keyword: string) => (
+              <span class="px-3 py-1 bg-notion-hover text-notion-secondary text-sm rounded-full">
+                {keyword}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <div class="prose py-8">
+        <Content />
+      </div>
+    </article>
+
     <ArticleNav prev={prev} next={next} />
   </div>
 </BaseLayout>
