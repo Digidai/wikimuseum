@@ -20,9 +20,9 @@ const siteTitle = title ? `${title} | WikiMuseum` : 'WikiMuseum';
     <link rel="icon" type="image/svg+xml" href="/wikimuseum/favicon.svg" />
     <title>{siteTitle}</title>
   </head>
-  <body class="min-h-screen">
+  <body class="min-h-screen bg-white text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900">
     <Header />
-    <main class="px-6 py-8">
+    <main class="mx-auto max-w-4xl px-6 py-12">
       <slot />
     </main>
   </body>

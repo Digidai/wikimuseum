@@ -8,9 +8,9 @@ const articles = (await getCollection('articles'))
 ---
 
 <BaseLayout title="首页" description="WikiMuseum">
-  <div class="max-w-2xl mx-auto">
+  <div class="space-y-2">
     {articles.length > 0 ? (
-      <div>
+      <div class="grid gap-1">
         {articles.map((article) => (
           <ArticleCard
             title={article.data.title}
@@ -20,9 +20,11 @@ const articles = (await getCollection('articles'))
         ))}
       </div>
     ) : (
-      <p class="text-notion-secondary">
-        还没有文章。<a href="/wikimuseum/publish/" class="text-notion-blue hover:underline">发布第一篇</a>
-      </p>
+      <div class="rounded-xl border border-dashed border-slate-200 p-12 text-center">
+        <p class="text-slate-500">
+          还没有文章。<a href="/wikimuseum/publish/" class="font-medium text-blue-600 hover:underline">发布第一篇</a>
+        </p>
+      </div>
     )}
   </div>
 </BaseLayout>

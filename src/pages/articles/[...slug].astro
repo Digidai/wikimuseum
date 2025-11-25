@@ -19,15 +19,13 @@ const formatDate = (date: Date) => {
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
-  <div class="max-w-2xl mx-auto">
-    <article>
-      <header class="mb-8">
-        <h1 class="text-2xl font-bold mb-2">{article.data.title}</h1>
-        <time class="text-sm text-notion-tertiary">{formatDate(article.data.publishDate)}</time>
-      </header>
-      <div class="prose">
-        <Content />
-      </div>
-    </article>
-  </div>
+  <article class="mx-auto max-w-prose">
+    <header class="mb-10 text-center">
+      <h1 class="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{article.data.title}</h1>
+      <time class="text-sm text-slate-500">{formatDate(article.data.publishDate)}</time>
+    </header>
+    <div class="prose prose-slate prose-lg mx-auto prose-headings:font-semibold prose-a:text-blue-600 hover:prose-a:text-blue-500">
+      <Content />
+    </div>
+  </article>
 </BaseLayout>
