@@ -6,18 +6,31 @@ interface Props {
   description?: string;
 }
 
-const { title, publishDate, slug } = Astro.props;
+const { title, publishDate, slug, description } = Astro.props;
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(date);
 };
 ---
 
-<a href={`/wikimuseum/articles/${slug}/`} class="group flex items-center justify-between py-2 px-3 -mx-3 rounded hover:bg-notion-hover transition-colors">
-  <h3 class="text-notion-text font-medium truncate pr-4">
-    {title}
-  </h3>
-  <div class="hidden sm:block text-sm text-notion-secondary shrink-0">
-    {formatDate(publishDate)}
-  </div>
+<a href={`/wikimuseum/articles/${slug}/`} class="group block">
+  <article class="h-full flex flex-col p-6 rounded-2xl border border-openai-gray-100 bg-white hover:border-openai-gray-200 hover:shadow-sm transition-all duration-200">
+    <div class="text-xs font-medium text-openai-gray-400 uppercase tracking-wider mb-3">
+      {formatDate(publishDate)}
+    </div>
+    <h3 class="text-lg font-semibold text-openai-black group-hover:text-openai-green transition-colors mb-2 line-clamp-2">
+      {title}
+    </h3>
+    {description && (
+      <p class="text-sm text-openai-gray-500 line-clamp-2 flex-grow">
+        {description}
+      </p>
+    )}
+    <div class="mt-4 flex items-center text-sm font-medium text-openai-green">
+      Read more
+      <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </div>
+  </article>
 </a>

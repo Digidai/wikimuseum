@@ -7,26 +7,34 @@ const articles = (await getCollection('articles'))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 ---
 
-<BaseLayout title="Home">
-  <div class="max-w-3xl mx-auto pt-8">
-    {articles.length > 0 ? (
-      <div class="flex flex-col">
-        {articles.map((article) => (
-          <ArticleCard
-            title={article.data.title}
-            publishDate={article.data.publishDate}
-            slug={article.id}
-            description={article.data.description}
-          />
-        ))}
-      </div>
-    ) : (
-      <div class="py-12 text-center text-notion-secondary">
-        <p class="mb-4">No pages found.</p>
-        <a href="/wikimuseum/publish/" class="text-notion-text underline decoration-notion-secondary underline-offset-4 hover:text-black">
-          Create new page
-        </a>
-      </div>
-    )}
+<BaseLayout title="Research" fullWidth={true}>
+  <div class="mb-16">
+    <h1 class="text-5xl font-semibold tracking-tight text-openai-black mb-4">Research</h1>
+    <p class="text-xl text-openai-gray-500 max-w-2xl">
+      Deep dives into companies, technologies, and market trends.
+    </p>
   </div>
+
+  {articles.length > 0 ? (
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {articles.map((article) => (
+        <ArticleCard
+          title={article.data.title}
+          publishDate={article.data.publishDate}
+          slug={article.id}
+          description={article.data.description}
+        />
+      ))}
+    </div>
+  ) : (
+    <div class="py-24 text-center">
+      <p class="text-openai-gray-500 mb-6">No research published yet.</p>
+      <a href="/wikimuseum/publish/" class="inline-flex items-center gap-2 text-openai-green hover:underline font-medium">
+        Publish your first research
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  )}
 </BaseLayout>

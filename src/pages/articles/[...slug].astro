@@ -8,11 +8,9 @@ export async function getStaticPaths() {
 
   return articles.map((article, index) => ({
     params: { slug: article.id },
-    props: { 
+    props: {
       article,
-      // Older article (appears later in the sorted list)
       prevArticle: index + 1 < articles.length ? articles[index + 1] : null,
-      // Newer article (appears earlier in the sorted list)
       nextArticle: index > 0 ? articles[index - 1] : null,
     }
   }));
@@ -22,44 +20,64 @@ const { article, prevArticle, nextArticle } = Astro.props;
 const { Content } = await render(article);
 
 const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+  return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
 };
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
-  <article class="mx-auto max-w-3xl pt-12 pb-24">
-    <header class="mb-12">
-      <h1 class="text-4xl font-bold text-notion-text leading-tight mb-4">{article.data.title}</h1>
-      <div class="text-notion-secondary text-sm border-b border-notion-border pb-8">
+  <article class="mx-auto max-w-3xl">
+    <header class="mb-12 pb-8 border-b border-openai-gray-100">
+      <a href="/wikimuseum/" class="inline-flex items-center gap-2 text-sm font-medium text-openai-gray-500 hover:text-openai-green mb-8 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+        </svg>
+        Back to Research
+      </a>
+      <div class="text-sm font-medium text-openai-gray-400 uppercase tracking-wider mb-4">
         <time>{formatDate(article.data.publishDate)}</time>
       </div>
+      <h1 class="text-4xl sm:text-5xl font-semibold text-openai-black leading-tight tracking-tight">
+        {article.data.title}
+      </h1>
+      {article.data.description && (
+        <p class="mt-6 text-xl text-openai-gray-500 leading-relaxed">
+          {article.data.description}
+        </p>
+      )}
     </header>
-    
-    <div class="prose prose-lg max-w-none 
-      prose-headings:font-sans prose-headings:font-semibold prose-headings:text-notion-text prose-headings:mt-8 prose-headings:mb-4
-      prose-p:text-notion-text prose-p:leading-relaxed prose-p:my-3
-      prose-a:text-notion-text prose-a:underline prose-a:decoration-notion-secondary prose-a:underline-offset-4 hover:prose-a:bg-notion-hover
-      prose-img:rounded-md prose-img:my-8
-      prose-blockquote:border-l-4 prose-blockquote:border-notion-text prose-blockquote:pl-4 prose-blockquote:text-notion-text prose-blockquote:italic
-      prose-code:font-mono prose-code:text-[#EB5757] prose-code:bg-[#F7F6F3] prose-code:px-1.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
-      prose-hr:border-notion-border prose-hr:my-8">
+
+    <div class="prose prose-lg max-w-none
+      prose-headings:font-sans prose-headings:font-semibold prose-headings:text-openai-black prose-headings:tracking-tight prose-headings:mt-12 prose-headings:mb-4
+      prose-h2:text-2xl prose-h3:text-xl
+      prose-p:text-openai-gray-700 prose-p:leading-relaxed prose-p:my-5
+      prose-a:text-openai-green prose-a:no-underline hover:prose-a:underline
+      prose-strong:text-openai-black prose-strong:font-semibold
+      prose-img:rounded-xl prose-img:my-10 prose-img:shadow-sm
+      prose-blockquote:border-l-4 prose-blockquote:border-openai-gray-200 prose-blockquote:pl-6 prose-blockquote:text-openai-gray-600 prose-blockquote:italic prose-blockquote:not-italic prose-blockquote:font-normal
+      prose-code:font-mono prose-code:text-openai-gray-800 prose-code:bg-openai-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+      prose-pre:bg-openai-gray-900 prose-pre:text-openai-gray-100 prose-pre:rounded-xl prose-pre:my-8
+      prose-ul:text-openai-gray-700 prose-ol:text-openai-gray-700
+      prose-li:my-2
+      prose-hr:border-openai-gray-100 prose-hr:my-12">
       <Content />
     </div>
 
-    <hr class="my-12 border-notion-border" />
-
-    <nav class="flex justify-between text-sm text-notion-secondary">
+    <nav class="mt-16 pt-8 border-t border-openai-gray-100 grid grid-cols-2 gap-8">
       {prevArticle ? (
-        <a href={`/wikimuseum/articles/${prevArticle.id}/`} class="hover:text-notion-text flex flex-col gap-1 group">
-          <span class="text-xs uppercase tracking-wider opacity-60">Previous</span>
-          <span class="underline decoration-transparent group-hover:decoration-notion-secondary underline-offset-4">{prevArticle.data.title}</span>
+        <a href={`/wikimuseum/articles/${prevArticle.id}/`} class="group flex flex-col gap-2">
+          <span class="text-xs font-medium text-openai-gray-400 uppercase tracking-wider">Previous</span>
+          <span class="text-openai-black font-medium group-hover:text-openai-green transition-colors line-clamp-2">
+            {prevArticle.data.title}
+          </span>
         </a>
       ) : <div />}
 
       {nextArticle ? (
-        <a href={`/wikimuseum/articles/${nextArticle.id}/`} class="hover:text-notion-text flex flex-col gap-1 text-right group">
-          <span class="text-xs uppercase tracking-wider opacity-60">Next</span>
-          <span class="underline decoration-transparent group-hover:decoration-notion-secondary underline-offset-4">{nextArticle.data.title}</span>
+        <a href={`/wikimuseum/articles/${nextArticle.id}/`} class="group flex flex-col gap-2 text-right items-end">
+          <span class="text-xs font-medium text-openai-gray-400 uppercase tracking-wider">Next</span>
+          <span class="text-openai-black font-medium group-hover:text-openai-green transition-colors line-clamp-2">
+            {nextArticle.data.title}
+          </span>
         </a>
       ) : <div />}
     </nav>

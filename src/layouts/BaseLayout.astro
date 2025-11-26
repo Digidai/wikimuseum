@@ -5,9 +5,10 @@ import Header from '../components/Header.astro';
 interface Props {
   title: string;
   description?: string;
+  fullWidth?: boolean;
 }
 
-const { title, description = 'WikiMuseum' } = Astro.props;
+const { title, description = 'WikiMuseum - Research & Insights', fullWidth = false } = Astro.props;
 const siteTitle = title ? `${title} | WikiMuseum` : 'WikiMuseum';
 ---
 
@@ -19,14 +20,22 @@ const siteTitle = title ? `${title} | WikiMuseum` : 'WikiMuseum';
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/wikimuseum/favicon.svg" />
     <title>{siteTitle}</title>
   </head>
-  <body class="min-h-screen bg-white text-notion-text antialiased selection:bg-[#2eaadc] selection:text-white">
+  <body class="min-h-screen bg-white text-openai-gray-800 antialiased selection:bg-openai-green selection:text-white">
     <Header />
-    <main class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+    <main class:list={[
+      "mx-auto px-6 py-16 lg:px-8",
+      fullWidth ? "max-w-5xl" : "max-w-3xl"
+    ]}>
       <slot />
     </main>
+    <footer class="border-t border-openai-gray-100 py-8">
+      <div class="mx-auto max-w-5xl px-6 lg:px-8">
+        <p class="text-sm text-openai-gray-400">WikiMuseum Research</p>
+      </div>
+    </footer>
   </body>
 </html>

@@ -7,47 +7,63 @@ const UPDATE_URL = 'https://github.com/Digidai/wikimuseum/issues/new?template=up
 const DELETE_URL = 'https://github.com/Digidai/wikimuseum/issues/new?template=delete-article.yml';
 ---
 
-<BaseLayout title="Publish Artifact" description="Publish a new article to WikiMuseum">
+<BaseLayout title="Publish" description="Publish new research to WikiMuseum">
   <div class="mx-auto max-w-2xl">
-    <div class="mb-12 text-center">
-      <h1 class="text-3xl font-bold font-serif text-stone-900 mb-2">Curator Studio</h1>
-      <p class="text-stone-500 font-sans">Contribute to the knowledge collection.</p>
+    <div class="mb-16">
+      <h1 class="text-4xl font-semibold tracking-tight text-openai-black mb-4">Publish Research</h1>
+      <p class="text-lg text-openai-gray-500">Contribute to our knowledge collection.</p>
     </div>
 
     <div class="space-y-12">
       <section>
-        <h2 class="mb-6 text-xs font-bold uppercase tracking-widest text-stone-400 border-b border-stone-200 pb-2">New Submission</h2>
-        <div class="bg-white border border-stone-200 p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-          <div class="mb-8 relative pl-8 border-l-2 border-stone-200">
-            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-stone-200 text-[10px] flex items-center justify-center font-bold text-stone-600">1</div>
-            <h3 class="font-bold font-serif text-lg text-stone-900">Prepare Manuscript</h3>
-            <p class="mt-2 text-sm text-stone-600 leading-relaxed">Create a public GitHub Gist named <code>article.md</code>. Ensure frontmatter is correct.</p>
-            <a href={GIST_URL} target="_blank" class="mt-4 inline-flex items-center text-sm font-bold text-orange-600 hover:text-orange-700 border-b border-orange-200 hover:border-orange-600 transition-colors pb-0.5">
-              Open Gist <span class="ml-1">&rarr;</span>
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-openai-gray-400 mb-6">New Submission</h2>
+        <div class="rounded-2xl border border-openai-gray-100 bg-white p-8">
+          <div class="mb-8 relative pl-10">
+            <div class="absolute left-0 top-0.5 w-6 h-6 rounded-full bg-openai-green text-white text-xs flex items-center justify-center font-semibold">1</div>
+            <h3 class="font-semibold text-lg text-openai-black">Prepare Manuscript</h3>
+            <p class="mt-2 text-openai-gray-600 leading-relaxed">Create a public GitHub Gist named <code class="text-sm bg-openai-gray-100 px-1.5 py-0.5 rounded">article.md</code>. Ensure frontmatter is correct.</p>
+            <a href={GIST_URL} target="_blank" class="mt-4 inline-flex items-center text-sm font-medium text-openai-green hover:underline">
+              Open GitHub Gist
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
             </a>
           </div>
-          
-          <div class="relative pl-8 border-l-2 border-stone-200">
-            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-stone-200 text-[10px] flex items-center justify-center font-bold text-stone-600">2</div>
-            <h3 class="font-bold font-serif text-lg text-stone-900">Submit for Review</h3>
-            <p class="mt-2 text-sm text-stone-600 leading-relaxed">Automated curators will process your request shortly.</p>
-            <a href={NEW_URL} target="_blank" class="mt-5 inline-block bg-stone-900 text-white px-6 py-3 text-sm font-medium hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl">
-              Start Submission Process
+
+          <div class="relative pl-10">
+            <div class="absolute left-0 top-0.5 w-6 h-6 rounded-full bg-openai-green text-white text-xs flex items-center justify-center font-semibold">2</div>
+            <h3 class="font-semibold text-lg text-openai-black">Submit for Review</h3>
+            <p class="mt-2 text-openai-gray-600 leading-relaxed">Our automated system will process your request.</p>
+            <a href={NEW_URL} target="_blank" class="mt-5 inline-flex items-center gap-2 bg-openai-black text-white px-6 py-3 text-sm font-medium rounded-full hover:bg-openai-gray-800 transition-colors">
+              Start Submission
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
             </a>
           </div>
         </div>
       </section>
 
       <section>
-        <h2 class="mb-6 text-xs font-bold uppercase tracking-widest text-stone-400 border-b border-stone-200 pb-2">Collection Management</h2>
-        <div class="grid gap-6 sm:grid-cols-2">
-          <a href={UPDATE_URL} target="_blank" class="group flex flex-col justify-between border border-stone-200 bg-white p-6 hover:border-orange-400 transition-colors">
-            <span class="font-bold font-serif text-lg text-stone-900 group-hover:text-orange-700">Update Artifact</span>
-            <span class="mt-4 text-xs font-bold uppercase tracking-wider text-stone-400 group-hover:text-orange-500 flex items-center">Proceed <span class="ml-2">&rarr;</span></span>
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-openai-gray-400 mb-6">Manage Existing</h2>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <a href={UPDATE_URL} target="_blank" class="group flex items-center justify-between rounded-2xl border border-openai-gray-100 bg-white p-6 hover:border-openai-gray-200 hover:shadow-sm transition-all">
+            <div>
+              <span class="font-semibold text-openai-black group-hover:text-openai-green transition-colors">Update Research</span>
+              <p class="text-sm text-openai-gray-500 mt-1">Modify existing content</p>
+            </div>
+            <svg class="w-5 h-5 text-openai-gray-300 group-hover:text-openai-green group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
           </a>
-          <a href={DELETE_URL} target="_blank" class="group flex flex-col justify-between border border-stone-200 bg-white p-6 hover:border-red-400 transition-colors">
-            <span class="font-bold font-serif text-lg text-stone-900 group-hover:text-red-700">Remove Artifact</span>
-            <span class="mt-4 text-xs font-bold uppercase tracking-wider text-stone-400 group-hover:text-red-500 flex items-center">Proceed <span class="ml-2">&rarr;</span></span>
+          <a href={DELETE_URL} target="_blank" class="group flex items-center justify-between rounded-2xl border border-openai-gray-100 bg-white p-6 hover:border-red-200 hover:shadow-sm transition-all">
+            <div>
+              <span class="font-semibold text-openai-black group-hover:text-red-600 transition-colors">Remove Research</span>
+              <p class="text-sm text-openai-gray-500 mt-1">Delete published content</p>
+            </div>
+            <svg class="w-5 h-5 text-openai-gray-300 group-hover:text-red-500 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
           </a>
         </div>
       </section>
