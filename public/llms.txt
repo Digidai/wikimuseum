@@ -10,11 +10,8 @@
 ## 文章列表
 - [Google 历史深度研究报告](https://digidai.github.io/wikimuseum/articles/google-历史深度研究报告-1764090584127/): 在数字时代的核心，Google 已不仅仅是一家搜索引擎公司，它是全球信息流动的守护者和创新的引擎。自 1995 年斯坦福大学的两名博士生 Larry Page 和 Sergey Brin 相遇开始，这个项目从一个名为 BackRub 的学术实验，迅速演变为一家市值近 3 万亿美元的科技帝国[[1]]
 - [Google大模型深度研究报告：技术演进与行业影响](https://digidai.github.io/wikimuseum/articles/google大模型深度研究报告-技术演进与行业影响-1764071590944/): 在人工智能技术迅猛发展的时代背景下，大型语言模型已成为推动全球科技创新的核心驱动力之一。作为AI领域的领军企业，Google通过其强大的研究实力和持续的技术创新，不仅塑造了现代AI技术的发展轨迹，更在自然语言处理、多模态理解和智能交互等多个维度上实现了突破性进展。本报告旨在全面梳理Google大模型
-- [Jobright.ai 公司深度研究报告](https://digidai.github.io/wikimuseum/articles/jobright-ai-公司深度研究报告-1764125283710/): Jobright.ai是一家专注于AI驱动求职与招聘的创新型HR科技公司，总部位于美国，其官网为https://jobright.ai<sup><a href=
-- [Jobright.ai 公司深度研究报告](https://digidai.github.io/wikimuseum/articles/jobright-ai-公司深度研究报告-1764125453015/): Jobright.ai是一家专注于AI驱动求职与招聘的创新型HR科技公司，总部位于美国，其官网为https://jobright.ai<sup><a href=
-- [Mercor公司深度研究报告](https://digidai.github.io/wikimuseum/articles/mercor公司深度研究报告-1764125898886/): Mercor作为一家新兴的AI人才平台，正以惊人的速度崛起为AI经济领域的关键玩家。公司成立于2023年春季，总部位于美国加利福尼亚州旧金山，目前员工规模在51-200人之间[[1]](https://www.linkedin.com/company/mercor-ai/)[[2]](https:/
-- [Mercor公司深度研究报告](https://digidai.github.io/wikimuseum/articles/mercor公司深度研究报告-1764126029693/): Mercor作为一家新兴的AI人才平台，正以惊人的速度崛起为AI经济领域的关键玩家。公司成立于2023年春季，总部位于美国加利福尼亚州旧金山，目前员工规模在51-200人之间[[1]](https://www.linkedin.com/company/mercor-ai/)[[2]](https:/
-- [Mercor公司深度研究报告](https://digidai.github.io/wikimuseum/articles/mercor公司深度研究报告-1764126156384/): Mercor作为一家新兴的AI人才平台，正以惊人的速度崛起为AI经济领域的关键玩家。公司成立于2023年春季，总部位于美国加利福尼亚州旧金山，目前员工规模在51-200人之间[[1]](https://www.linkedin.com/company/mercor-ai/)[[2]](https:/
+- [Jobright.ai 公司深度研究报告](https://digidai.github.io/wikimuseum/articles/jobright-ai-公司深度研究报告-1764125453015/): Jobright.ai是一家专注于AI驱动求职与招聘的创新型HR科技公司，总部位于美国，致力于通过人工智能技术弥合职业机会差距，帮助求职者实现职业梦想，同时为雇主提供高效的人才匹配服务。
+- [Mercor公司深度研究报告](https://digidai.github.io/wikimuseum/articles/mercor公司深度研究报告-1764126156384/): Mercor作为一家新兴的AI人才平台，正以惊人的速度崛起为AI经济领域的关键玩家。公司成立于2023年春季，总部位于美国加利福尼亚州旧金山，致力于通过AI技术革新人才招聘流程。
 - [欢迎来到 WikiMuseum](https://digidai.github.io/wikimuseum/articles/welcome/): WikiMuseum 是一个支持 Markdown 发布、AI SEO 优化的现代博客平台
 
 ## 主要页面

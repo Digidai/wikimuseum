@@ -88,7 +88,19 @@ function extractDescription(content) {
   for (const line of lines) {
     const trimmed = line.trim();
     if (trimmed && !trimmed.startsWith('#') && !trimmed.startsWith('-') && !trimmed.startsWith('*')) {
-      return trimmed.substring(0, 150);
+      // Clean HTML tags, footnote references, and special characters
+      const cleaned = trimmed
+        .replace(/<[^>]+>/g, '')  // Remove HTML tags
+        .replace(/\[\d+\]/g, '')  // Remove [1], [2] style references
+        .replace(/\n/g, ' ')      // Replace newlines with spaces
+        .trim();
+      // Take first 150 chars but ensure we don't cut in the middle of a word
+      if (cleaned.length <= 150) {
+        return cleaned;
+      }
+      const truncated = cleaned.substring(0, 150);
+      const lastSpace = truncated.lastIndexOf(' ');
+      return lastSpace > 100 ? truncated.substring(0, lastSpace) + '...' : truncated + '...';
     }
   }
   return 'No description available.';
@@ -104,9 +116,29 @@ function generateSlug(title) {
   return `${cleanTitle}-${timestamp}`;
 }
 
+/**
+ * Escape special characters for YAML string values
+ */
+function escapeYamlString(str) {
+  return str
+    .replace(/\\/g, '\\\\')  // Escape backslashes first
+    .replace(/"/g, '\\"')     // Escape double quotes
+    .replace(/\n/g, ' ')      // Replace newlines with spaces
+    .replace(/\r/g, '')       // Remove carriage returns
+    .trim();
+}
+
 function generateFrontmatter(title, description) {
   const now = new Date().toISOString().split('T')[0];
-  return `---\ntitle: "${title}"\ndescription: "${description}"\npublishDate: ${now}\nupdateDate: ${now}\nkeywords: []\nseoOptimized: false
+  const safeTitle = escapeYamlString(title);
+  const safeDescription = escapeYamlString(description);
+  return `---
+title: "${safeTitle}"
+description: "${safeDescription}"
+publishDate: ${now}
+updateDate: ${now}
+keywords: []
+seoOptimized: false
 ---`;
 }
 
