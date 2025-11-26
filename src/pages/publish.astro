@@ -7,54 +7,47 @@ const UPDATE_URL = 'https://github.com/Digidai/wikimuseum/issues/new?template=up
 const DELETE_URL = 'https://github.com/Digidai/wikimuseum/issues/new?template=delete-article.yml';
 ---
 
-<BaseLayout title="发布文章" description="发布 Markdown 文章">
+<BaseLayout title="Publish Artifact" description="Publish a new article to WikiMuseum">
   <div class="mx-auto max-w-2xl">
-    <div class="mb-10 text-center">
-      <h1 class="text-3xl font-bold text-slate-900">发布中心</h1>
-      <p class="mt-2 text-slate-500">管理您的知识库文章</p>
+    <div class="mb-12 text-center">
+      <h1 class="text-3xl font-bold font-serif text-stone-900 mb-2">Curator Studio</h1>
+      <p class="text-stone-500 font-sans">Contribute to the knowledge collection.</p>
     </div>
 
-    <div class="space-y-8">
+    <div class="space-y-12">
       <section>
-        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">发布新文章</h2>
-        <div class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50/50">
-          <div class="border-b border-slate-200 p-6">
-            <div class="flex gap-4">
-              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white border border-slate-200 text-sm font-bold text-slate-700 shadow-sm">1</div>
-              <div>
-                <h3 class="font-medium text-slate-900">准备内容</h3>
-                <p class="mt-1 text-sm text-slate-500">创建一个 GitHub Gist，将文件命名为 <code>article.md</code>。</p>
-                <a href={GIST_URL} target="_blank" class="mt-3 inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-500">
-                  前往 Gist <span class="ml-1">&rarr;</span>
-                </a>
-              </div>
-            </div>
+        <h2 class="mb-6 text-xs font-bold uppercase tracking-widest text-stone-400 border-b border-stone-200 pb-2">New Submission</h2>
+        <div class="bg-white border border-stone-200 p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="mb-8 relative pl-8 border-l-2 border-stone-200">
+            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-stone-200 text-[10px] flex items-center justify-center font-bold text-stone-600">1</div>
+            <h3 class="font-bold font-serif text-lg text-stone-900">Prepare Manuscript</h3>
+            <p class="mt-2 text-sm text-stone-600 leading-relaxed">Create a public GitHub Gist named <code>article.md</code>. Ensure frontmatter is correct.</p>
+            <a href={GIST_URL} target="_blank" class="mt-4 inline-flex items-center text-sm font-bold text-orange-600 hover:text-orange-700 border-b border-orange-200 hover:border-orange-600 transition-colors pb-0.5">
+              Open Gist <span class="ml-1">&rarr;</span>
+            </a>
           </div>
-          <div class="p-6">
-            <div class="flex gap-4">
-              <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white border border-slate-200 text-sm font-bold text-slate-700 shadow-sm">2</div>
-              <div>
-                <h3 class="font-medium text-slate-900">提交申请</h3>
-                <p class="mt-1 text-sm text-slate-500">我们会自动处理您的发布请求。</p>
-                <a href={NEW_URL} target="_blank" class="mt-3 inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 shadow-sm transition-colors">
-                  开始发布
-                </a>
-              </div>
-            </div>
+          
+          <div class="relative pl-8 border-l-2 border-stone-200">
+            <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-stone-200 text-[10px] flex items-center justify-center font-bold text-stone-600">2</div>
+            <h3 class="font-bold font-serif text-lg text-stone-900">Submit for Review</h3>
+            <p class="mt-2 text-sm text-stone-600 leading-relaxed">Automated curators will process your request shortly.</p>
+            <a href={NEW_URL} target="_blank" class="mt-5 inline-block bg-stone-900 text-white px-6 py-3 text-sm font-medium hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl">
+              Start Submission Process
+            </a>
           </div>
         </div>
       </section>
 
       <section>
-        <h2 class="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-500">文章管理</h2>
-        <div class="grid gap-4 sm:grid-cols-2">
-          <a href={UPDATE_URL} target="_blank" class="group flex items-center justify-between rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:bg-blue-50 transition-all">
-            <span class="font-medium text-slate-700 group-hover:text-blue-700">更新文章</span>
-            <span class="text-slate-400 group-hover:text-blue-500">&rarr;</span>
+        <h2 class="mb-6 text-xs font-bold uppercase tracking-widest text-stone-400 border-b border-stone-200 pb-2">Collection Management</h2>
+        <div class="grid gap-6 sm:grid-cols-2">
+          <a href={UPDATE_URL} target="_blank" class="group flex flex-col justify-between border border-stone-200 bg-white p-6 hover:border-orange-400 transition-colors">
+            <span class="font-bold font-serif text-lg text-stone-900 group-hover:text-orange-700">Update Artifact</span>
+            <span class="mt-4 text-xs font-bold uppercase tracking-wider text-stone-400 group-hover:text-orange-500 flex items-center">Proceed <span class="ml-2">&rarr;</span></span>
           </a>
-          <a href={DELETE_URL} target="_blank" class="group flex items-center justify-between rounded-xl border border-slate-200 p-4 hover:border-red-300 hover:bg-red-50 transition-all">
-            <span class="font-medium text-slate-700 group-hover:text-red-700">删除文章</span>
-            <span class="text-slate-400 group-hover:text-red-500">&rarr;</span>
+          <a href={DELETE_URL} target="_blank" class="group flex flex-col justify-between border border-stone-200 bg-white p-6 hover:border-red-400 transition-colors">
+            <span class="font-bold font-serif text-lg text-stone-900 group-hover:text-red-700">Remove Artifact</span>
+            <span class="mt-4 text-xs font-bold uppercase tracking-wider text-stone-400 group-hover:text-red-500 flex items-center">Proceed <span class="ml-2">&rarr;</span></span>
           </a>
         </div>
       </section>

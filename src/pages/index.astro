@@ -7,23 +7,30 @@ const articles = (await getCollection('articles'))
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 ---
 
-<BaseLayout title="首页" description="WikiMuseum">
-  <div class="space-y-2">
+<BaseLayout title="首页" description="WikiMuseum - Curated Knowledge">
+  <div class="space-y-12">
+    <div class="text-center max-w-2xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold font-serif text-stone-900 mb-4 tracking-tight">Knowledge Gallery</h1>
+      <p class="text-lg text-stone-500 font-sans">Exploring technology, history, and future.</p>
+    </div>
+
     {articles.length > 0 ? (
-      <div class="grid gap-1">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {articles.map((article) => (
           <ArticleCard
             title={article.data.title}
             publishDate={article.data.publishDate}
             slug={article.id}
+            description={article.data.description}
           />
         ))}
       </div>
     ) : (
-      <div class="rounded-xl border border-dashed border-slate-200 p-12 text-center">
-        <p class="text-slate-500">
-          还没有文章。<a href="/wikimuseum/publish/" class="font-medium text-blue-600 hover:underline">发布第一篇</a>
-        </p>
+      <div class="flex flex-col items-center justify-center rounded-none border border-dashed border-stone-300 bg-stone-50 p-16 text-center">
+        <p class="text-stone-500 mb-4">No artifacts found.</p>
+        <a href="/wikimuseum/publish/" class="px-6 py-2 bg-stone-900 text-white font-medium hover:bg-orange-600 transition-colors">
+          Contribute
+        </a>
       </div>
     )}
   </div>
