@@ -29,11 +29,9 @@ const formatDate = (date: Date) => {
 <BaseLayout title={article.data.title} description={article.data.description}>
   <article class="mx-auto max-w-3xl pt-12 pb-24">
     <header class="mb-12">
-      <div class="text-6xl mb-6">📄</div>
       <h1 class="text-4xl font-bold text-notion-text leading-tight mb-4">{article.data.title}</h1>
-      <div class="flex items-center gap-4 text-notion-secondary text-sm border-b border-notion-border pb-8">
-        <time>@ {formatDate(article.data.publishDate)}</time>
-        {article.data.description && <span class="truncate opacity-60">{article.data.description}</span>}
+      <div class="text-notion-secondary text-sm border-b border-notion-border pb-8">
+        <time>{formatDate(article.data.publishDate)}</time>
       </div>
     </header>
     

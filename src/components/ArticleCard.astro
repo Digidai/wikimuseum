@@ -14,12 +14,9 @@ const formatDate = (date: Date) => {
 ---
 
 <a href={`/wikimuseum/articles/${slug}/`} class="group flex items-center justify-between py-2 px-3 -mx-3 rounded hover:bg-notion-hover transition-colors">
-  <div class="flex items-center gap-3 overflow-hidden">
-    <span class="text-xl shrink-0 opacity-80">📄</span>
-    <h3 class="text-notion-text font-medium truncate pr-4">
-      {title}
-    </h3>
-  </div>
+  <h3 class="text-notion-text font-medium truncate pr-4">
+    {title}
+  </h3>
   <div class="hidden sm:block text-sm text-notion-secondary shrink-0">
     {formatDate(publishDate)}
   </div>
