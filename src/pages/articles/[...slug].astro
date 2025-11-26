@@ -27,41 +27,41 @@ const formatDate = (date: Date) => {
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
-  <article class="mx-auto max-w-3xl">
-    <header class="mb-12 text-center">
-      <div class="mb-6 flex items-center justify-center gap-3 text-sm font-medium uppercase tracking-widest text-stone-400">
-        <a href="/wikimuseum/" class="hover:text-orange-600 transition-colors">Collection</a>
-        <span>/</span>
-        <time>{formatDate(article.data.publishDate)}</time>
+  <article class="mx-auto max-w-3xl pt-12 pb-24">
+    <header class="mb-12">
+      <div class="text-6xl mb-6">📄</div>
+      <h1 class="text-4xl font-bold text-notion-text leading-tight mb-4">{article.data.title}</h1>
+      <div class="flex items-center gap-4 text-notion-secondary text-sm border-b border-notion-border pb-8">
+        <time>@ {formatDate(article.data.publishDate)}</time>
+        {article.data.description && <span class="truncate opacity-60">{article.data.description}</span>}
       </div>
-      <h1 class="text-4xl md:text-5xl font-bold font-serif tracking-tight text-stone-900 leading-tight mb-6">{article.data.title}</h1>
     </header>
     
-    <div class="prose prose-lg prose-stone max-w-none mx-auto 
-      prose-headings:font-serif prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-stone-900 
-      prose-p:font-serif prose-p:text-stone-700 prose-p:leading-loose
-      prose-a:text-orange-600 hover:prose-a:text-orange-700 prose-a:no-underline hover:prose-a:underline
-      prose-img:rounded-none prose-img:shadow-xl prose-img:border prose-img:border-stone-100
-      prose-blockquote:border-l-2 prose-blockquote:border-orange-500 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-stone-800 prose-blockquote:bg-transparent
-      prose-code:font-mono prose-code:text-sm prose-code:text-orange-600 prose-code:bg-stone-100 prose-code:px-1.5 prose-code:rounded-sm prose-code:before:content-none prose-code:after:content-none
-      prose-hr:border-stone-200 prose-hr:my-12">
+    <div class="prose prose-lg max-w-none 
+      prose-headings:font-sans prose-headings:font-semibold prose-headings:text-notion-text prose-headings:mt-8 prose-headings:mb-4
+      prose-p:text-notion-text prose-p:leading-relaxed prose-p:my-3
+      prose-a:text-notion-text prose-a:underline prose-a:decoration-notion-secondary prose-a:underline-offset-4 hover:prose-a:bg-notion-hover
+      prose-img:rounded-md prose-img:my-8
+      prose-blockquote:border-l-4 prose-blockquote:border-notion-text prose-blockquote:pl-4 prose-blockquote:text-notion-text prose-blockquote:italic
+      prose-code:font-mono prose-code:text-[#EB5757] prose-code:bg-[#F7F6F3] prose-code:px-1.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+      prose-hr:border-notion-border prose-hr:my-8">
       <Content />
     </div>
 
-    <hr class="my-16 border-stone-200" />
+    <hr class="my-12 border-notion-border" />
 
-    <nav class="grid gap-6 sm:grid-cols-2">
+    <nav class="flex justify-between text-sm text-notion-secondary">
       {prevArticle ? (
-        <a href={`/wikimuseum/articles/${prevArticle.id}/`} class="group block border-t border-stone-200 pt-4 hover:border-orange-400 transition-colors">
-          <span class="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-400 group-hover:text-orange-500">Previous</span>
-          <span class="font-serif text-lg font-bold text-stone-900 group-hover:text-orange-700">{prevArticle.data.title}</span>
+        <a href={`/wikimuseum/articles/${prevArticle.id}/`} class="hover:text-notion-text flex flex-col gap-1 group">
+          <span class="text-xs uppercase tracking-wider opacity-60">Previous</span>
+          <span class="underline decoration-transparent group-hover:decoration-notion-secondary underline-offset-4">{prevArticle.data.title}</span>
         </a>
       ) : <div />}
 
       {nextArticle ? (
-        <a href={`/wikimuseum/articles/${nextArticle.id}/`} class="group block border-t border-stone-200 pt-4 text-right hover:border-orange-400 transition-colors">
-          <span class="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-400 group-hover:text-orange-500">Next</span>
-          <span class="font-serif text-lg font-bold text-stone-900 group-hover:text-orange-700">{nextArticle.data.title}</span>
+        <a href={`/wikimuseum/articles/${nextArticle.id}/`} class="hover:text-notion-text flex flex-col gap-1 text-right group">
+          <span class="text-xs uppercase tracking-wider opacity-60">Next</span>
+          <span class="underline decoration-transparent group-hover:decoration-notion-secondary underline-offset-4">{nextArticle.data.title}</span>
         </a>
       ) : <div />}
     </nav>

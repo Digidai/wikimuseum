@@ -9,11 +9,11 @@ export default {
       },
       colors: {
         notion: {
-          text: '#191919',
-          secondary: '#6B6B6B',
-          tertiary: '#9B9B9B',
-          blue: '#0077D4',
-          border: '#E5E5E5'
+          text: '#37352F',
+          bg: '#FFFFFF',
+          hover: '#F5F5F5',
+          secondary: '#787774',
+          border: '#E9E9E9'
         }
       },
       typography: (theme) => ({
@@ -22,12 +22,13 @@ export default {
             'code::before': { content: '""' },
             'code::after': { content: '""' },
             maxWidth: 'none',
-            color: '#333',
-            fontFamily: theme('fontFamily.serif'),
-            h1: { fontFamily: theme('fontFamily.sans') },
-            h2: { fontFamily: theme('fontFamily.sans') },
-            h3: { fontFamily: theme('fontFamily.sans') },
-            h4: { fontFamily: theme('fontFamily.sans') },
+            color: theme('colors.notion.text'),
+            fontFamily: theme('fontFamily.sans'),
+            h1: { fontFamily: theme('fontFamily.sans'), color: theme('colors.notion.text') },
+            h2: { fontFamily: theme('fontFamily.sans'), color: theme('colors.notion.text') },
+            h3: { fontFamily: theme('fontFamily.sans'), color: theme('colors.notion.text') },
+            h4: { fontFamily: theme('fontFamily.sans'), color: theme('colors.notion.text') },
+            blockquote: { borderLeftColor: theme('colors.notion.text') },
           },
         },
       }),
