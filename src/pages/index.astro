@@ -8,15 +8,9 @@ const articles = (await getCollection('articles'))
 ---
 
 <BaseLayout title="Home">
-  <div class="max-w-3xl mx-auto">
-    <div class="mb-8 pt-8">
-      <h1 class="text-4xl font-bold text-notion-text mb-6">
-        Knowledge Base
-      </h1>
-    </div>
-
+  <div class="max-w-3xl mx-auto pt-8">
     {articles.length > 0 ? (
-      <div class="flex flex-col border-t border-notion-border">
+      <div class="flex flex-col">
         {articles.map((article) => (
           <ArticleCard
             title={article.data.title}
